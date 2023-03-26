@@ -14,6 +14,7 @@ static t_execution *make_execution_ar(char** str_ar)
 	while(str_ar[i])
 		i ++;
 	ret_ar = malloc(sizeof(t_execution) * (i + 1));
+	ret_ar[i].is_terminated = NULL_STATE;
 	i = 0;
 	while(str_ar[i])
 	{

@@ -14,6 +14,7 @@ void execute_iterate(t_execution *execution_ar, char **envp, int **pipe_ar)
 		if(i == p_count)
 		{
 			//전체 프로세스 종료 확인 후 리턴
+			//여기서 모두 기다리면 될듯
 			//wait(NULL);
 			return ;
 		}
@@ -22,7 +23,7 @@ void execute_iterate(t_execution *execution_ar, char **envp, int **pipe_ar)
 			break ;
 		else
 		{
-			//wait(NULL); //추후 수정 일단 동작 확인 용 //yes와 같은 끝나지 않는 동작 병렬적으로 처리되게 하면 됨
+			wait(NULL); //추후 수정 일단 동작 확인 용 //yes와 같은 끝나지 않는 동작 병렬적으로 처리되게 하면 됨
 			if(i != 0)
 			{
 				close(pipe_ar[i-1][0]);
