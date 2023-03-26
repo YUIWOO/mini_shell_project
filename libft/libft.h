@@ -26,5 +26,6 @@ void	ft_putstr_fd(char *s, int fd);
 int		ft_atoi(char *str);
 int		ft_isdigit(char c);
 char	*ft_strdup(char *src);
+char	*ft_strchr(char *s, int c);
 
 #endif
