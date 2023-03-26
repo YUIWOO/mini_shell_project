@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_lstnew_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yuikim <yuikim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/07 15:19:50 by yuikim            #+#    #+#             */
-/*   Updated: 2023/02/08 14:15:50 by yuikim           ###   ########.fr       */
+/*   Created: 2022/11/17 18:20:08 by yuikim            #+#    #+#             */
+/*   Updated: 2022/11/23 08:54:31 by yuikim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_strlen(char *s)
+t_list	*ft_lstnew(void *content)
 {
-	int	i;
+	t_list	*node;
 
-	i = 0;
-	while (s[i])
-	{
-		i++;
-	}
-	return (i);
+	node = (t_list *)malloc(sizeof(t_list));
+	if (!node)
+		return (NULL);
+	node->content = content;
+	node->next = NULL;
+	return (node);
 }

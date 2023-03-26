@@ -10,7 +10,7 @@ void handler(int signum)
     rl_redisplay();
 }
 
-int main(void)
+int main(int argc, char **argv, char **envp)
 {
     int ret;
     char *line;
@@ -26,10 +26,12 @@ int main(void)
             free(line);
             line = NULL;
 			if(execution_ar)
-				print_all_execution(execution_ar);
-			if(execution_ar)
+			{
+				//print_all_execution(execution_ar);
+				int exit_code = execute_all(execution_ar, envp); //종료값을 $?코드로 바꿀생각 해야할듯 ?
 				free_execution_ar(execution_ar);
-			//system("leaks a.out");
+			}
+			system("leaks a.out");
         }
         else
         {

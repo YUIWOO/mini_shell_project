@@ -10,6 +10,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <string.h>
+#include <fcntl.h>
 
 #define REDIR_IN 1 //'<'
 #define REDIR_OUT 2 //'>'
@@ -39,4 +40,7 @@ char	**pipe_split(char const *s, char c);
 void set_redirect_token(t_redirect *redirect_ptr, char *token);
 t_execution *str_to_execution(char *line);
 void print_all_execution(t_execution *execution_ar);
+int execute(t_execution *execution, char **envp, int **pipe_ar, int index);
+char	*make_command_path(char *command, char **envp);
+int execute_all(t_execution *execution_ar, char **envp);
 #endif
