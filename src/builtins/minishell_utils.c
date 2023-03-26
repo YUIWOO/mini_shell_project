@@ -33,16 +33,16 @@ char	*get_env_value(char **envp, char *key)
 	return (NULL);
 }
 
-void	free_dptr(char **dptr)
+void	free_dptr(char **dptr, int opt)
 {
 	int	i;
 
-	i = 0;
-	// while (dptr[i])
-	// {
-	// 	free(dptr[i]);
-	// 	i++;
-	// }
+	i = opt;
+	while (dptr[i])
+	{
+		free(dptr[i]);
+		i++;
+	}
 	free(dptr);
 }
 
@@ -53,8 +53,9 @@ char	*str_total_join(char **words, char *operator)
 	char	*temp;
 
 	i = 0;
-	str = words[i];
-	while (words[++i])
+	str = ft_strdup(words[i]);
+	i++;
+	while (words[i])
 	{
 		temp = str;
 		str = ft_strjoin(str, operator);
@@ -62,6 +63,7 @@ char	*str_total_join(char **words, char *operator)
 		temp = str;
 		str = ft_strjoin(str, words[i]);
 		free(temp);
+		i++;
 	}
 	return (str);
 }

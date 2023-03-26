@@ -38,6 +38,11 @@ void	set_env_statement(char **env_addr, char *key, char *value)
 	free(temp);
 }
 
+void	make_env_statement(char *key, char *value)
+{
+	char **
+}
+
 char	*set_env_value(char **envp, char *key, char *value)
 {
 	int	exist_idx;	
@@ -45,7 +50,6 @@ char	*set_env_value(char **envp, char *key, char *value)
 
 	i = 0;
 	exist_idx = 0;
-	// set_env_statement(&envp[0], "SECURITYSESSIONID", "euijin!!");
 	while (envp[i])
 	{
 		if (ft_strncmp(envp[i], key, ft_strlen(key)) == 0
@@ -59,7 +63,9 @@ char	*set_env_value(char **envp, char *key, char *value)
 		i++;
 	}
 	if (exist_idx == 0)
-		;
+	{
+
+	}
 	//export 부분에서 새로 추가되는 key의 경우 추가해야 할 필요가 있음
 	return (NULL);
 }

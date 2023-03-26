@@ -16,16 +16,22 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <limits.h>
-# include "/Users/yuikim/MiniShell/libft/libft.h"//상대 경로로 표시할 필요 있음
+# include "../../libft/libft.h"//상대 경로로 표시할 필요 있음
+//define
+#define HOME 1
+#define DEFAULT 0
+
+//builtin
 int		env(char **envp);
 int		pwd(void);
 int		cd(char *path);
+char	*get_pwd(void);
 
 //utils
 void	show_error(char *cmd);
 char	*get_env_value(char **envp, char *key);
 char	*set_env_value(char **envp, char *key, char *value);
-void	free_dptr(char **dptr);
+void	free_dptr(char **dptr, int opt);
 char	*str_total_join(char **words, char *operator);
 int		get_dptr_size(char **dptr);
 char	**dptr_dup(char **dptr);

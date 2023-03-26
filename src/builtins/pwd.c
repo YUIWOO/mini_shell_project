@@ -23,3 +23,13 @@ int	pwd(void)
 	free(buffer);
 	return (0);
 }
+
+char *get_pwd(void)
+{
+	char	*buffer;
+
+	buffer = malloc(sizeof(char) * (PATH_MAX + 1));
+	if (getcwd(buffer, PATH_MAX) == NULL)
+		return (NULL);
+	return (buffer);
+}

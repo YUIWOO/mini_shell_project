@@ -14,16 +14,9 @@ t_info	g_info;
 int main(int argc, char **argv, char **envp)
 {
 	g_info.envp = dptr_dup(envp);
-	// printf("%s", g_info.envp[0]);
-	// char **cmds = ft_split("eui/jin/jjang", '/');
-	// char *str = str_total_join(cmds, "/");
-	// printf("%s",str);
-	// char *str2 = get_env_value(g_info.envp, "HOME");
-	// printf("%s", str2);
-	cd("~/Desktop");
+	cd("..");
 	pwd();
-	// cd("~/Desktop");
-	// pwd();
+	// env(g_info.envp);
 	system("leaks a.out");
 	
 	// int i = 0;

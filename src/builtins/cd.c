@@ -18,52 +18,33 @@ int	cd(char *path)
 {
 	char	**path_info;
 	char	*new_path;
+	char	*buffer;
 	int		result;
 
 	path_info = ft_split(path, '/');
 	if (ft_strncmp(path_info[0], "~",
 			ft_strlen(path_info[0])) == 0)
 	{
-		// free(path_info[0]);
+		free(path_info[0]);
 		path_info[0] = get_env_value(g_info.envp, "HOME");
+		new_path = str_total_join(path_info, "/");
+		free_dptr(path_info, HOME);
 	}
 	else
-		;
-		// free(path_info[0]);
-	new_path = str_total_join(path_info, "/");
-	// free_dptr(path_info);
+	{
+		new_path = str_total_join(path_info, "/");
+		free_dptr(path_info, DEFAULT);
+	}
 	result = chdir(new_path);
 	if (result == -1)
 	{
+		free(new_path);
 		show_error("cd");
 		return (1);
 	}
-	set_env_value(g_info.envp, "PWD", new_path);
+	buffer = get_pwd();
+	set_env_value(g_info.envp, "PWD", buffer);
+	free(new_path);
+	free(buffer);
 	return (0);
 }
-
-// char **get_path_info(char *path)
-// {
-// 	char	**raw_path_info;
-// 	char	*pwd;
-// 	char	*home;
-
-// 	raw_path_info = ft_split("path", '/');
-// 	//home 경로 받기 0 -> ~이면
-// 	//중간에 .이나 .. 나오면 연산된 pwd의 현재 경로, 이전 경로
-// 	//연산된 경로를 최종 반환
-// }
-
-
-
-// int main()
-// {
-// 	cd("/");
-// 	int i = 0;
-// 	while(1)
-// 		if (i == 0)
-// 			pwd();
-// 		i++;
-// 		;
-// 	return (0);
-// }
