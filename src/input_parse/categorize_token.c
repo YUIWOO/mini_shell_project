@@ -3,19 +3,15 @@
 static void set_exec_count(int *exec_count, char **token_ar)
 {
 	int i = 0;
-	exec_count[0] = 0; //cmd
-	exec_count[1] = 0; //option
-	exec_count[2] = 0; //redirect
+	exec_count[0] = 0; //execve ar
+	exec_count[1] = 0; //redirect
 	while(token_ar[i])
 	{
 		if(token_ar[i][0] == '>' || token_ar[i][0] == '<')
-			exec_count[2] ++;
+			exec_count[1] ++;
 		else
 		{
-			if(exec_count[0] == 0)
-				exec_count[0] = 1;
-			else
-				exec_count[1] ++;
+			exec_count[0] ++;
 		}
 		i ++;
 	}
@@ -23,12 +19,10 @@ static void set_exec_count(int *exec_count, char **token_ar)
 
 static void alloc_exec_ptr_member(t_execution *exe_ptr, int *exec_count)
 {
-	if(exec_count[0] == 0)
-		exe_ptr->cmd = NULL;
-	exe_ptr->option_ar = malloc(sizeof(char *) * (exec_count[1] + 1));
-	exe_ptr->option_ar[exec_count[1]] = NULL;
+	exe_ptr->exev_argv = malloc(sizeof(char *) * (exec_count[1] + 1));
+	exe_ptr->exev_argv[exec_count[0]] = NULL;
 	exe_ptr->redirect_ar = malloc(sizeof(t_redirect) * (exec_count[2] + 1));
-	exe_ptr->redirect_ar[exec_count[2]].type = NULL_STATE;
+	exe_ptr->redirect_ar[exec_count[1]].type = NULL_STATE;
 }
 
 static void allign_exec_ptr(t_execution *exe_ptr, char **token_ar)
@@ -47,13 +41,7 @@ static void allign_exec_ptr(t_execution *exe_ptr, char **token_ar)
 		}
 		else
 		{
-			if(cmd_count == 0)
-			{
-				exe_ptr->cmd = token_ar[i];
-				cmd_count ++;
-			}
-			else
-				exe_ptr->option_ar[option_count++] = token_ar[i];
+			exe_ptr->exev_argv[option_count++] = token_ar[i];
 		}
 		i ++;
 	}

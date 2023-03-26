@@ -2,6 +2,7 @@
 #define MAIN_H
 
 #include "main.h"
+#include "../libft/libft.h"
 #include <signal.h>
 #include <stdio.h>
 #include <readline/readline.h>
@@ -26,9 +27,8 @@ typedef struct s_redirect
 typedef struct s_execution
 {
 	int is_terminated;
-	char *cmd;
+	char **exev_argv;
 	t_redirect *redirect_ar;
-	char **option_ar;
 }	t_execution;
 
 void categorize_token(t_execution *exe_ptr, char **token_ar);
