@@ -1,36 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yuikim <yuikim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/09 10:01:27 by yuikim            #+#    #+#             */
-/*   Updated: 2022/11/10 20:51:29 by yuikim           ###   ########.fr       */
+/*   Created: 2023/03/24 11:46:29 by yuikim            #+#    #+#             */
+/*   Updated: 2023/03/24 12:02:10 by yuikim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "builtins.h"
 
-size_t	ft_strlcpy(char *dest, const char *src, size_t size)
+int	env(char **envp)
 {
-	size_t	count;
-	size_t	i;
+	int	i;
 
-	count = 0;
-	i = 0;
-	while (src[count])
-	{
-		count++;
-	}
-	if (size)
-	{
-		while (src[i] && (i + 1 < size))
-		{
-			dest[i] = src[i];
-			i++;
-		}
-		dest[i] = 0;
-	}
-	return (count);
+	i = -1;
+	while (envp[++i])
+		printf("%s\n", envp[i]);
+	return (0);
 }

@@ -1,25 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew_bonus.c                                  :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yuikim <yuikim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/17 18:20:08 by yuikim            #+#    #+#             */
-/*   Updated: 2022/11/23 08:54:31 by yuikim           ###   ########.fr       */
+/*   Created: 2023/03/24 12:03:55 by yuikim            #+#    #+#             */
+/*   Updated: 2023/03/24 17:27:05 by yuikim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "builtins.h"
 
-t_list	*ft_lstnew(void *content)
+int	pwd(void)
 {
-	t_list	*node;
+	char	*buffer;
 
-	node = (t_list *)malloc(sizeof(t_list));
-	if (!node)
+	buffer = malloc(sizeof(char) * (PATH_MAX + 1));
+	if (getcwd(buffer, PATH_MAX) == NULL)
+		return (1);
+	printf("%s\n", buffer);
+	free(buffer);
+	return (0);
+}
+
+char *get_pwd(void)
+{
+	char	*buffer;
+
+	buffer = malloc(sizeof(char) * (PATH_MAX + 1));
+	if (getcwd(buffer, PATH_MAX) == NULL)
 		return (NULL);
-	node->content = content;
-	node->next = NULL;
-	return (node);
+	return (buffer);
 }
