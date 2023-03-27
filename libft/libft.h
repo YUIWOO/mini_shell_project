@@ -6,7 +6,7 @@
 /*   By: yuikim <yuikim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 11:55:21 by yuikim            #+#    #+#             */
-/*   Updated: 2023/03/21 20:43:07 by yuikim           ###   ########.fr       */
+/*   Updated: 2023/03/24 19:15:57 by yuikim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,7 @@ char	**ft_split(char *s, char c);
 void	ft_putstr_fd(char *s, int fd);
 int		ft_atoi(char *str);
 int		ft_isdigit(char c);
+char	*ft_strdup(char *src);
+char	*ft_strchr(char *s, int c);
 
 #endif
