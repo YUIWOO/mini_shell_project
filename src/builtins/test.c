@@ -17,8 +17,9 @@ int main(int argc, char **argv, char **envp)
 	cd("..");
 	pwd();
 	// env(g_info.envp);
-	system("leaks a.out");
-	
+	export("EUI=JIN", g_info.envp);
+	// system("leaks a.out");
+	env(g_info.envp);
 	// int i = 0;
 	// while(1)
 	// 	if (i == 0)

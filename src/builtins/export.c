@@ -2,7 +2,7 @@
 
 int export(char *arg, char **envp)
 {
-    char    **arg_arr;
+    char    *arg_copy;
     char    *key;
     char    *value;
     char    *temp;
@@ -11,9 +11,12 @@ int export(char *arg, char **envp)
         return (1);
     if (ft_strchr(arg, '=') == NULL)
         return (1);
-    temp = ft_strchr(arg, '=');
+    arg_copy = ft_strdup(arg);
+    temp = ft_strchr(arg_copy, '=');
     *temp = 0;
-    key = arg_arr;
+    key = arg_copy;
     value = temp + 1;
+    set_env_value(envp, key, value);
+    free(key);
     return (0);
 }

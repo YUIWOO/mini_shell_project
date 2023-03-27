@@ -15,6 +15,7 @@
 
 # include <unistd.h>
 # include <stdio.h>
+# include <stdlib.h>
 # include <limits.h>
 # include "../../libft/libft.h"//상대 경로로 표시할 필요 있음
 //define
@@ -26,6 +27,7 @@ int		env(char **envp);
 int		pwd(void);
 int		cd(char *path);
 char	*get_pwd(void);
+int		export(char *arg, char **envp);
 
 //utils
 void	show_error(char *cmd);
@@ -35,7 +37,7 @@ void	free_dptr(char **dptr, int opt);
 char	*str_total_join(char **words, char *operator);
 int		get_dptr_size(char **dptr);
 char	**dptr_dup(char **dptr);
-
+void	append_dptr(char ***dptr, char *statement);
 
 
 //type
