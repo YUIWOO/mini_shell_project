@@ -12,6 +12,13 @@ int main(int argc, char **argv, char **envp)
         line = readline("r o u ghshell $ ");
         if (line)
         {
+			add_history(line);
+			if(!is_valid_line(line))
+			{
+				printf("syntax error\n");
+				free(line);
+				continue;
+			}
 			execution_ar = str_to_execution(line);
 			add_history(line);
             free(line);

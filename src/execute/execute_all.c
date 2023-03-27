@@ -6,12 +6,11 @@ int execute_iterate(t_execution *execution_ar, char **envp, int **pipe_ar)
 	int input_fd;
 	int output_fd;
 	int p_count = 0;
-	int *pid_buffer;
-
+	int pid;
 	while(execution_ar[p_count].is_terminated != NULL_STATE)
 		p_count ++;
-	pid_buffer = malloc(sizeof(int) * p_count); //fork함수에 free 필요 ?
-
+	//pid_buffer = malloc(sizeof(int) * p_count); //fork함수에 free 필요 ?
+	int last_pid;
 	while(++i <= p_count)
 	{
 		//waitpid(-1, NULL, 0);
@@ -27,7 +26,7 @@ int execute_iterate(t_execution *execution_ar, char **envp, int **pipe_ar)
 				int child_id = wait(&status);
 				if(child_id <= 0)
 					break ;
-				if(child_id == pid_buffer[i-1])
+				if(child_id == pid)
 				{
 					//printf("catch\n");
 					exit_status = status;
@@ -35,12 +34,11 @@ int execute_iterate(t_execution *execution_ar, char **envp, int **pipe_ar)
 			}
 			return exit_status;
 		}
-		int pid = fork();
+		pid = fork();
 		if(pid == 0)
 			break ;
 		else
 		{
-			pid_buffer[i] = pid;
 			//wait(NULL); //추후 수정 일단 동작 확인 용 //yes와 같은 끝나지 않는 동작 병렬적으로 처리되게 하면 됨
 			if(i != 0)
 			{

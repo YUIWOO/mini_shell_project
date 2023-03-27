@@ -30,8 +30,6 @@ t_execution *str_to_execution(char *line)
 {
 	t_execution *execution_ar;
 
-	if(!is_valid_line(line))
-		return NULL;
 	char **str_ar = pipe_split(line, '|');
 	execution_ar = make_execution_ar(str_ar);
 	return execution_ar;
