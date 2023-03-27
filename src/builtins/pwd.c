@@ -6,7 +6,7 @@
 /*   By: yuikim <yuikim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 12:03:55 by yuikim            #+#    #+#             */
-/*   Updated: 2023/03/24 17:27:05 by yuikim           ###   ########.fr       */
+/*   Updated: 2023/03/27 19:49:46 by yuikim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	pwd(void)
 	return (0);
 }
 
-char *get_pwd(void)
+char	*get_pwd(void)
 {
 	char	*buffer;
 
