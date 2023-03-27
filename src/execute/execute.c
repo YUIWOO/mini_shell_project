@@ -50,6 +50,7 @@ void set_fd(t_redirect *redirect, int *i_fd_ref, int *o_fd_ref)
 	}
 }
 
+
 int execute(t_execution *execution, char **envp, int **pipe_ar, int index)
 {
 	int input_fd;
@@ -75,6 +76,9 @@ int execute(t_execution *execution, char **envp, int **pipe_ar, int index)
 	dup2(input_fd, 0);
 	dup2(output_fd, 1);
 	char *cmd_path = make_command_path(execution->exev_argv[0], envp);
+	// //내가 한거
+	// if (check_builtins(execution->exev_argv))
+	// 	return ;
 	if(!cmd_path)
 	{
 			if(execve(execution->exev_argv[0], execution->exev_argv, envp) == -1)

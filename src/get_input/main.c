@@ -19,7 +19,7 @@ int main(int argc, char **argv, char **envp)
 				free(line);
 				continue;
 			}
-			execution_ar = str_to_execution(line);
+			execution_ar = str_to_execution(line, &envp);
 			add_history(line);
             free(line);
             line = NULL;
