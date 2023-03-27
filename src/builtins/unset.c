@@ -1,34 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   export.c                                           :+:      :+:    :+:   */
+/*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yuikim <yuikim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/27 11:33:04 by yuikim            #+#    #+#             */
-/*   Updated: 2023/03/27 17:05:04 by yuikim           ###   ########.fr       */
+/*   Created: 2023/03/27 17:06:16 by yuikim            #+#    #+#             */
+/*   Updated: 2023/03/27 17:35:06 by yuikim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-int	export(char *arg, char ***envp)
+static void	remove_env(char *key, char **envp)
 {
-	char	*arg_copy;
-	char	*key;
-	char	*value;
-	char	*temp;
+	int	i;
 
-	if (!arg || !(*envp))
+	i = 0;
+	while (envp[i])
+	{
+		if (ft_strncmp(envp[i], key, ft_strlen(key)) == 0
+			&& envp[i][ft_strlen(key)] == '=')
+			break ;
+		i++;
+	}
+	free(envp[i]);
+	while (envp[i + 1])
+	{
+		envp[i] = envp[i + 1];
+		i++;
+	}
+	envp[i] = NULL;
+}
+
+int	unset(char *key, char **envp)
+{
+	if (!key || !get_env_value(envp, key))
 		return (1);
-	if (ft_strchr(arg, '=') == NULL)
-		return (1);
-	arg_copy = ft_strdup(arg);
-	temp = ft_strchr(arg_copy, '=');
-	*temp = 0;
-	key = arg_copy;
-	value = temp + 1;
-	set_env_value(envp, key, value);
-	free(key);
+	remove_env(key, envp);
 	return (0);
 }
