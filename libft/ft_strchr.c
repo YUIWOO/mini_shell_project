@@ -12,11 +12,7 @@
 
 #include "libft.h"
 
-<<<<<<< HEAD
 char	*ft_strchr(const char *s, int c)
-=======
-char	*ft_strchr(char *s, int c)
->>>>>>> 3a466dac3023b8c79137419bc4f22deb35115200
 {
 	size_t	i;
 

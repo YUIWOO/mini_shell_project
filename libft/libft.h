@@ -6,11 +6,7 @@
 /*   By: yuikim <yuikim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 11:55:21 by yuikim            #+#    #+#             */
-<<<<<<< HEAD
 /*   Updated: 2022/11/23 08:53:57 by yuikim           ###   ########.fr       */
-=======
-/*   Updated: 2023/03/24 19:15:57 by yuikim           ###   ########.fr       */
->>>>>>> 3a466dac3023b8c79137419bc4f22deb35115200
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +55,6 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 void	ft_striteri(char *s, void (*f)(unsigned int, char*));
 void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(char *s, int fd);
-<<<<<<< HEAD
 void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
 t_list	*ft_lstnew(void *content);
@@ -71,11 +66,5 @@ void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstlast(t_list *lst);
 int		ft_lstsize(t_list *lst);
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
-=======
-int		ft_atoi(char *str);
-int		ft_isdigit(char c);
-char	*ft_strdup(char *src);
-char	*ft_strchr(char *s, int c);
->>>>>>> 3a466dac3023b8c79137419bc4f22deb35115200
 
 #endif
