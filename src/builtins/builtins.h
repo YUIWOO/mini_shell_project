@@ -6,7 +6,7 @@
 /*   By: yuikim <yuikim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 11:38:07 by yuikim            #+#    #+#             */
-/*   Updated: 2023/03/24 20:38:08 by yuikim           ###   ########.fr       */
+/*   Updated: 2023/03/27 12:53:28 by yuikim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@ int		env(char **envp);
 int		pwd(void);
 int		cd(char *path);
 char	*get_pwd(void);
-int		export(char *arg, char **envp);
+int	export(char *arg, char ***envp);
 
 //utils
 void	show_error(char *cmd);
 char	*get_env_value(char **envp, char *key);
-char	*set_env_value(char **envp, char *key, char *value);
+char	*set_env_value(char ***envp, char *key, char *value);
 void	free_dptr(char **dptr, int opt);
 char	*str_total_join(char **words, char *operator);
 int		get_dptr_size(char **dptr);

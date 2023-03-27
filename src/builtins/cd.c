@@ -6,7 +6,7 @@
 /*   By: yuikim <yuikim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 13:29:05 by yuikim            #+#    #+#             */
-/*   Updated: 2023/03/24 21:01:13 by yuikim           ###   ########.fr       */
+/*   Updated: 2023/03/27 12:54:07 by yuikim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,9 @@ int	cd(char *path)
 	char	*buffer;
 	int		result;
 
+	buffer = get_pwd();
+	set_env_value(&g_info.envp, "OLDPWD", buffer);
+	free(buffer);
 	path_info = ft_split(path, '/');
 	if (ft_strncmp(path_info[0], "~",
 			ft_strlen(path_info[0])) == 0)
@@ -43,7 +46,7 @@ int	cd(char *path)
 		return (1);
 	}
 	buffer = get_pwd();
-	set_env_value(g_info.envp, "PWD", buffer);
+	set_env_value(&g_info.envp, "PWD", buffer);
 	free(new_path);
 	free(buffer);
 	return (0);
