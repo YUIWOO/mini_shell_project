@@ -1,21 +1,12 @@
 #include "../include/main.h"
 
-void handler(int signum)
-{
-    if (signum != SIGINT)
-        return;
-    printf("ctrl + c\n");
-    rl_on_new_line();
-    rl_replace_line("", 1);
-    rl_redisplay();
-}
-
 int main(int argc, char **argv, char **envp)
 {
     int ret;
     char *line;
 	t_execution *execution_ar;
-    signal(SIGINT, handler);
+    signal(SIGINT, signal_handler);
+	signal(SIGQUIT, signal_handler);
     while (1)
     {
         line = readline("r o u ghshell $ ");

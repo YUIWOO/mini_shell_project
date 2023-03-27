@@ -43,4 +43,5 @@ void print_all_execution(t_execution *execution_ar);
 int execute(t_execution *execution, char **envp, int **pipe_ar, int index);
 char	*make_command_path(char *command, char **envp);
 int execute_all(t_execution *execution_ar, char **envp);
+void signal_handler(int signum);
 #endif
