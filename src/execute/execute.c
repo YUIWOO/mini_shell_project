@@ -76,7 +76,11 @@ int execute(t_execution *execution, char **envp, int **pipe_ar, int index)
 	dup2(output_fd, 1);
 	char *cmd_path = make_command_path(execution->exev_argv[0], envp);
 	if(!cmd_path)
-		execve(execution->exev_argv[0], execution->exev_argv, envp);
-	execve(cmd_path, execution->exev_argv, envp);
-	return -1;
+	{
+			if(execve(execution->exev_argv[0], execution->exev_argv, envp) == -1)
+				exit_with_perror(execution->exev_argv[0]);
+	}
+	if(execve(cmd_path, execution->exev_argv, envp) == -1)
+		exit_with_perror(cmd_path);
+	return 123;
 }

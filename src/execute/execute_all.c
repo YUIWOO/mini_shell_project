@@ -1,29 +1,47 @@
 #include "../include/main.h"
 
-void execute_iterate(t_execution *execution_ar, char **envp, int **pipe_ar)
+int execute_iterate(t_execution *execution_ar, char **envp, int **pipe_ar)
 {
 	int i = -1;
 	int input_fd;
 	int output_fd;
 	int p_count = 0;
+	int *pid_buffer;
 
 	while(execution_ar[p_count].is_terminated != NULL_STATE)
 		p_count ++;
+	pid_buffer = malloc(sizeof(int) * p_count); //fork함수에 free 필요 ?
+
 	while(++i <= p_count)
 	{
+		//waitpid(-1, NULL, 0);
+		//전체 프로세스 종료 확인 후 리턴
+		//여기서 모두 기다리면 될듯 //ls | lll 같은경우 불안정 -> execute 문제인듯 ?
+		//wait(NULL);
 		if(i == p_count)
-		{
-			//전체 프로세스 종료 확인 후 리턴
-			//여기서 모두 기다리면 될듯
-			//wait(NULL);
-			return ;
+		{		
+			int exit_status;
+			while (1)
+			{
+				int status;
+				int child_id = wait(&status);
+				if(child_id <= 0)
+					break ;
+				if(child_id == pid_buffer[i-1])
+				{
+					//printf("catch\n");
+					exit_status = status;
+				}
+			}
+			return exit_status;
 		}
 		int pid = fork();
 		if(pid == 0)
 			break ;
 		else
 		{
-			wait(NULL); //추후 수정 일단 동작 확인 용 //yes와 같은 끝나지 않는 동작 병렬적으로 처리되게 하면 됨
+			pid_buffer[i] = pid;
+			//wait(NULL); //추후 수정 일단 동작 확인 용 //yes와 같은 끝나지 않는 동작 병렬적으로 처리되게 하면 됨
 			if(i != 0)
 			{
 				close(pipe_ar[i-1][0]);
@@ -35,6 +53,7 @@ void execute_iterate(t_execution *execution_ar, char **envp, int **pipe_ar)
 		}
 	}
 	execute(execution_ar+i, envp, pipe_ar, i);
+	return 0;
 }
 
 void free_pipe(int **pipe_ar)
@@ -67,7 +86,7 @@ int execute_all(t_execution *execution_ar, char **envp)
 		pipe_ar[i] = malloc(sizeof(int) * 2);
 		pipe(pipe_ar[i]);
 	}
-	execute_iterate(execution_ar, envp, pipe_ar);
+	int exit_status = execute_iterate(execution_ar, envp, pipe_ar);
 	free_pipe(pipe_ar);
-	return 0;
+	return exit_status;
 }

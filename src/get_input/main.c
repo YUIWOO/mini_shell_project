@@ -20,13 +20,14 @@ int main(int argc, char **argv, char **envp)
 			{
 				//print_all_execution(execution_ar);
 				int exit_code = execute_all(execution_ar, envp); //종료값을 $?코드로 바꿀생각 해야할듯 ?
+				printf("exit : %d\n", exit_code);
 				free_execution_ar(execution_ar);
 			}
 			//system("leaks a.out");
         }
         else
         {
-            printf("ctrl + d\n");
+            //printf("ctrl + d\n");
 			exit(0);
         }
     }
