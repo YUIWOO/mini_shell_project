@@ -1,41 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_lstclear_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yuikim <yuikim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/16 10:08:05 by yuikim            #+#    #+#             */
-/*   Updated: 2022/11/19 09:02:36 by yuikim           ###   ########.fr       */
+/*   Created: 2022/11/17 19:28:10 by yuikim            #+#    #+#             */
+/*   Updated: 2022/11/21 08:27:55 by yuikim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+void	ft_lstclear(t_list **lst, void (*del)(void*))
 {
-	char	*answer;
-	size_t	s1_len;
-	size_t	s2_len;
-	size_t	i;
+	t_list	*temp;
 
-	s1_len = ft_strlen(s1);
-	s2_len = ft_strlen(s2);
-	answer = malloc(sizeof(char) * (s1_len + s2_len + 1));
-	if (!answer)
-		return (NULL);
-	i = 0;
-	while (i < s1_len)
+	temp = *lst;
+	while (*lst)
 	{
-		answer[i] = s1[i];
-		i++;
+		temp = (*lst)->next;
+		del((*lst)->content);
+		free((*lst));
+		*lst = temp;
 	}
-	i = 0;
-	while (i < s2_len)
-	{
-		answer[s1_len + i] = s2[i];
-		i++;
-	}
-	answer[s1_len + i] = 0;
-	return (answer);
+	*lst = NULL;
 }

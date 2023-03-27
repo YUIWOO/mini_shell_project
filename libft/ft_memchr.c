@@ -1,41 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yuikim <yuikim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/16 10:08:05 by yuikim            #+#    #+#             */
-/*   Updated: 2022/11/19 09:02:36 by yuikim           ###   ########.fr       */
+/*   Created: 2022/11/09 18:37:13 by yuikim            #+#    #+#             */
+/*   Updated: 2022/11/14 20:10:04 by yuikim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+void	*ft_memchr(const void *s, int c, size_t n)
 {
-	char	*answer;
-	size_t	s1_len;
-	size_t	s2_len;
 	size_t	i;
 
-	s1_len = ft_strlen(s1);
-	s2_len = ft_strlen(s2);
-	answer = malloc(sizeof(char) * (s1_len + s2_len + 1));
-	if (!answer)
-		return (NULL);
 	i = 0;
-	while (i < s1_len)
+	while (i < n)
 	{
-		answer[i] = s1[i];
+		if (((unsigned char *)s)[i] == (unsigned char)c)
+		{
+			return ((unsigned char *)s + i);
+		}
 		i++;
 	}
-	i = 0;
-	while (i < s2_len)
-	{
-		answer[s1_len + i] = s2[i];
-		i++;
-	}
-	answer[s1_len + i] = 0;
-	return (answer);
+	return (NULL);
 }

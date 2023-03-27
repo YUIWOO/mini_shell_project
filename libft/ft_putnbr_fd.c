@@ -1,41 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yuikim <yuikim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/16 10:08:05 by yuikim            #+#    #+#             */
-/*   Updated: 2022/11/19 09:02:36 by yuikim           ###   ########.fr       */
+/*   Created: 2022/11/17 13:54:08 by yuikim            #+#    #+#             */
+/*   Updated: 2022/11/23 09:00:43 by yuikim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+static void	print(int n, int fd)
 {
-	char	*answer;
-	size_t	s1_len;
-	size_t	s2_len;
-	size_t	i;
+	char	ch;
 
-	s1_len = ft_strlen(s1);
-	s2_len = ft_strlen(s2);
-	answer = malloc(sizeof(char) * (s1_len + s2_len + 1));
-	if (!answer)
-		return (NULL);
-	i = 0;
-	while (i < s1_len)
+	ch = n + '0';
+	write(fd, &ch, 1);
+}
+
+void	ft_putnbr_fd(int nb, int fd)
+{
+	if (nb == -2147483648)
 	{
-		answer[i] = s1[i];
-		i++;
+		write(fd, "-", 1);
+		print(2, fd);
+		ft_putnbr_fd(147483648, fd);
 	}
-	i = 0;
-	while (i < s2_len)
+	else if (nb < 0)
 	{
-		answer[s1_len + i] = s2[i];
-		i++;
+		write(fd, "-", 1);
+		ft_putnbr_fd(-nb, fd);
 	}
-	answer[s1_len + i] = 0;
-	return (answer);
+	else if (nb > 9)
+	{
+		ft_putnbr_fd(nb / 10, fd);
+		print(nb % 10, fd);
+	}
+	else
+	{
+		print(nb, fd);
+	}
 }

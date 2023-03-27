@@ -1,41 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yuikim <yuikim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/16 10:08:05 by yuikim            #+#    #+#             */
-/*   Updated: 2022/11/19 09:02:36 by yuikim           ###   ########.fr       */
+/*   Created: 2022/11/07 16:51:17 by yuikim            #+#    #+#             */
+/*   Updated: 2022/11/21 09:42:23 by yuikim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+void	*ft_memmove(void *dst, const void *src, size_t len)
 {
-	char	*answer;
-	size_t	s1_len;
-	size_t	s2_len;
 	size_t	i;
 
-	s1_len = ft_strlen(s1);
-	s2_len = ft_strlen(s2);
-	answer = malloc(sizeof(char) * (s1_len + s2_len + 1));
-	if (!answer)
-		return (NULL);
 	i = 0;
-	while (i < s1_len)
+	if (src == dst)
+		return (dst);
+	if (src < dst)
 	{
-		answer[i] = s1[i];
-		i++;
+		while (i < len)
+		{
+			((char *)dst)[len - 1 - i] = ((char *)src)[len - 1 - i];
+			i++;
+		}
 	}
-	i = 0;
-	while (i < s2_len)
+	else
 	{
-		answer[s1_len + i] = s2[i];
-		i++;
+		while (i < len)
+		{
+			((char *)dst)[i] = ((char *)src)[i];
+			i++;
+		}
 	}
-	answer[s1_len + i] = 0;
-	return (answer);
+	return (dst);
 }

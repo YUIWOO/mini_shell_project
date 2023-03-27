@@ -1,41 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yuikim <yuikim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/16 10:08:05 by yuikim            #+#    #+#             */
-/*   Updated: 2022/11/19 09:02:36 by yuikim           ###   ########.fr       */
+/*   Created: 2022/11/11 10:27:41 by yuikim            #+#    #+#             */
+/*   Updated: 2022/11/21 09:50:55 by yuikim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strdup(const char *src)
 {
-	char	*answer;
-	size_t	s1_len;
-	size_t	s2_len;
-	size_t	i;
+	char	*dest;
+	size_t	src_len;
 
-	s1_len = ft_strlen(s1);
-	s2_len = ft_strlen(s2);
-	answer = malloc(sizeof(char) * (s1_len + s2_len + 1));
-	if (!answer)
-		return (NULL);
-	i = 0;
-	while (i < s1_len)
+	src_len = ft_strlen(src);
+	dest = (char *)malloc(sizeof(char) * (src_len + 1));
+	if (!dest)
+		return (0);
+	while (*src)
 	{
-		answer[i] = s1[i];
-		i++;
+		*dest = *src;
+		src++;
+		dest++;
 	}
-	i = 0;
-	while (i < s2_len)
-	{
-		answer[s1_len + i] = s2[i];
-		i++;
-	}
-	answer[s1_len + i] = 0;
-	return (answer);
+	*dest = 0;
+	return (dest - src_len);
 }
