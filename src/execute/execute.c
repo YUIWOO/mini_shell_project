@@ -31,17 +31,19 @@ void set_fd(t_redirect *redirect, int *i_fd_ref, int *o_fd_ref)
 		if(redirect[i].type == REDIR_IN || redirect[i].type == REDIR_HEREDOC)
 		{
 			if(redirect[i].type == REDIR_IN)
+			{
 				option = O_RDONLY;
-			// if(redirect[i].type == REDIR_HEREDOC)
-			// {
-
-			// }
-			*i_fd_ref = open_file(redirect[i].file_name, option);
+				*i_fd_ref = open_file(redirect[i].file_name, option);
+			}
+			if(redirect[i].type == REDIR_HEREDOC)
+			{
+				
+			}
 		}
 		else if(redirect[i].type == REDIR_OUT || redirect[i].type == REDIR_APPEND)
 		{
 			if(redirect[i].type == REDIR_OUT)
-			option = O_CREAT | O_WRONLY;
+			option = O_CREAT | O_WRONLY | O_TRUNC;
 			else if(redirect[i].type == REDIR_APPEND)
 				option = O_CREAT | O_APPEND | O_WRONLY;
 			*o_fd_ref = open_file(redirect[i].file_name, option);
@@ -72,10 +74,13 @@ int execute(t_execution *execution, char **envp, int **pipe_ar, int index)
 		close(pipe_ar[index][0]);
 	}
 	set_fd(execution->redirect_ar, &input_fd, &output_fd);
-	// printf("index : %d input : %d output : %d\n", index, input_fd, output_fd);
 	dup2(input_fd, 0);
 	dup2(output_fd, 1);
-	char *cmd_path = make_command_path(execution->exev_argv[0], envp);
+	char *cmd_path;
+	if(execution->exev_argv[0])
+		cmd_path = make_command_path(execution->exev_argv[0], envp);
+	else
+		exit(0);
 	// //내가 한거
 	// if (check_builtins(execution->exev_argv))
 	// 	return ;
