@@ -5,11 +5,16 @@ int main(int argc, char **argv, char **envp)
     int ret;
     char *line;
 	t_execution *execution_ar;
-    signal(SIGINT, signal_handler);
+	struct termios term;
+
+	input_handler(&term);
+	signal(SIGINT, signal_handler);
+	signal(SIGTERM, signal_handler);
 	signal(SIGQUIT, signal_handler);
+
     while (1)
     {
-        line = readline("r o u ghshell $ ");
+        line = readline("bash $ ");
         if (line)
         {
 			add_history(line);
@@ -34,7 +39,7 @@ int main(int argc, char **argv, char **envp)
         }
         else
         {
-            //printf("ctrl + d\n");
+			print_eof();
 			exit(0);
         }
     }

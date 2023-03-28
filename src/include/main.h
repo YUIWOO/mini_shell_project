@@ -12,6 +12,7 @@
 #include <string.h>
 #include <fcntl.h>
 #include "../builtins/builtins.h"
+#include <termios.h>
 
 #define REDIR_IN 1 //'<'
 #define REDIR_OUT 2 //'>'
@@ -46,4 +47,6 @@ char	*make_command_path(char *command, char **envp);
 int execute_all(t_execution *execution_ar, char **envp);
 void signal_handler(int signum);
 char *token_to_good_token(char *token, char ***envp);
+void	input_handler(struct termios *term_ptr);
+void	print_eof(void);
 #endif
