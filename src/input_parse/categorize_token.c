@@ -29,13 +29,14 @@ static void allign_exec_ptr(t_execution *exe_ptr, char **token_ar, char ***envp)
 {
 	int i = 0;
 	int argv_count = 0;
-	int redirect_count = 0;
+	int redirect_count = -1;
 
 	while(token_ar[i])
 	{
 		if(token_ar[i][0] == '>' || token_ar[i][0] == '<')
 		{
-			set_redirect_token(&exe_ptr->redirect_ar[redirect_count++], token_ar[i]);
+			set_redirect_token(&exe_ptr->redirect_ar[++redirect_count], token_ar[i]);
+			exe_ptr->redirect_ar[redirect_count].file_name = token_to_good_token(exe_ptr->redirect_ar[redirect_count].file_name, envp);
 			// exe_ptr->redirect_ar[redirect_count++].file_name = token_ar[i];
 		}
 		else

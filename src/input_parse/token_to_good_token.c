@@ -1,5 +1,23 @@
 #include "../include/main.h"
 
+extern int exit_code;
+
+char *make_exit_code(char *str, int index)
+{
+	char *left_str = ft_substr(str, 0, index);
+	char *middle_str = ft_itoa(exit_code);
+	char *right_str = ft_substr(str, index + 2, ft_strlen(str)-index-2);
+	char *tmp_str = ft_strjoin(left_str, middle_str);
+	char *ret_str = ft_strjoin(tmp_str, right_str);
+	//printf("ret : %s\n", ret_str);
+	free(left_str);
+	free(middle_str);
+	free(right_str);
+	free(tmp_str);
+	free(str);
+	return ret_str;
+}
+
 int is_env_var(char *str)
 {
 	int i = -1;
@@ -79,7 +97,12 @@ char *change_double_quote(char *token, int *start, int end, char ***envp)
 	{
 		if(middle_str[i] == '$')
 		{
-			if(is_env_var(middle_str + i))
+			if(middle_str[i+1] == '?')
+			{
+				middle_str = make_exit_code(middle_str, i);
+				i --;
+			}
+			else if(is_env_var(middle_str + i))
 			{
 				middle_str = change_env_var(middle_str, i, i + get_env_var_length(middle_str + i) , envp);
 				i --;
@@ -134,7 +157,12 @@ char *token_to_good_token(char *token, char ***envp)
 		}
 		if(token[i] == '$')
 		{
-			if(is_env_var(token + i))
+			if(token[i+1] == '?')
+			{
+				token = make_exit_code(token, i);
+				i --;
+			}
+			else if(is_env_var(token + i))
 			{
 				token = change_env_var(token, i, i + get_env_var_length(token + i) , envp);
 				i --;

@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youngwch <youngwch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yuikim <yuikim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/24 11:46:29 by yuikim            #+#    #+#             */
-/*   Updated: 2023/03/28 16:06:42 by youngwch         ###   ########.fr       */
+/*   Created: 2022/11/10 09:17:00 by yuikim            #+#    #+#             */
+/*   Updated: 2022/11/14 20:12:42 by yuikim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// extern char **g_envp;
+#include "libft.h"
 
-#include "builtins.h"
-
-int	env(char **envp)
+void	*ft_calloc(size_t count, size_t size)
 {
-	int	i;
-	i = -1;
-	while (envp[++i])
-		printf("%s\n", envp[i]);
-	return (0);
+	char	*answer;
+
+	answer = (char *)malloc(count * size * sizeof(*answer));
+	if (!answer)
+		return (NULL);
+	ft_memset(answer, 0, count * size);
+	return (answer);
 }

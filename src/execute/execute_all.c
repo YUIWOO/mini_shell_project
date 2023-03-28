@@ -1,6 +1,6 @@
 #include "../include/main.h"
 
-int execute_iterate(t_execution *execution_ar, char **envp, int **pipe_ar)
+int execute_iterate(t_execution *execution_ar, char ***envp, int **pipe_ar)
 {
 	int i = -1;
 	int input_fd;
@@ -62,7 +62,7 @@ void free_pipe(int **pipe_ar)
 	free(pipe_ar);
 }
 
-int execute_all(t_execution *execution_ar, char **envp)
+int execute_all(t_execution *execution_ar, char ***envp)
 {
 	int **pipe_ar;
 	int p_count = 0;

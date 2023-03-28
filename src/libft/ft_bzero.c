@@ -1,24 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youngwch <youngwch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yuikim <yuikim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/24 11:46:29 by yuikim            #+#    #+#             */
-/*   Updated: 2023/03/28 16:06:42 by youngwch         ###   ########.fr       */
+/*   Created: 2022/11/07 16:10:28 by yuikim            #+#    #+#             */
+/*   Updated: 2022/11/19 09:30:42 by yuikim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// extern char **g_envp;
+#include "libft.h"
 
-#include "builtins.h"
-
-int	env(char **envp)
+void	*ft_bzero(void *s, size_t n)
 {
-	int	i;
-	i = -1;
-	while (envp[++i])
-		printf("%s\n", envp[i]);
-	return (0);
+	char	*ptr;
+	size_t	i;
+
+	ptr = s;
+	i = 0;
+	while (i < n)
+	{
+		ptr[i] = 0;
+		i++;
+	}
+	return (s);
 }

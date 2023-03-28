@@ -1,24 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   ft_isalnum.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youngwch <youngwch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yuikim <yuikim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/24 11:46:29 by yuikim            #+#    #+#             */
-/*   Updated: 2023/03/28 16:06:42 by youngwch         ###   ########.fr       */
+/*   Created: 2022/11/07 15:02:43 by yuikim            #+#    #+#             */
+/*   Updated: 2022/11/07 15:18:37 by yuikim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// extern char **g_envp;
+#include "libft.h"
 
-#include "builtins.h"
-
-int	env(char **envp)
+int	ft_isalnum(int c)
 {
-	int	i;
-	i = -1;
-	while (envp[++i])
-		printf("%s\n", envp[i]);
-	return (0);
+	return (ft_isalpha(c) || ft_isdigit(c));
 }

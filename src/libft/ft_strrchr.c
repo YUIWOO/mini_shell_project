@@ -1,24 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youngwch <youngwch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yuikim <yuikim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/24 11:46:29 by yuikim            #+#    #+#             */
-/*   Updated: 2023/03/28 16:06:42 by youngwch         ###   ########.fr       */
+/*   Created: 2022/11/09 18:26:46 by yuikim            #+#    #+#             */
+/*   Updated: 2022/11/23 08:21:23 by yuikim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// extern char **g_envp;
+#include "libft.h"
 
-#include "builtins.h"
-
-int	env(char **envp)
+char	*ft_strrchr(const char *s, int c)
 {
-	int	i;
-	i = -1;
-	while (envp[++i])
-		printf("%s\n", envp[i]);
-	return (0);
+	size_t		i;
+	char		*ptr;
+
+	i = 0;
+	ptr = NULL;
+	while (i < ft_strlen(s) + 1)
+	{
+		if (s[i] == (char)c)
+			ptr = (char *)s + i;
+		i++;
+	}
+	return (ptr);
 }

@@ -1,24 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   ft_lstadd_back_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youngwch <youngwch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yuikim <yuikim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/24 11:46:29 by yuikim            #+#    #+#             */
-/*   Updated: 2023/03/28 16:06:42 by youngwch         ###   ########.fr       */
+/*   Created: 2022/11/18 21:22:58 by yuikim            #+#    #+#             */
+/*   Updated: 2022/11/18 21:23:54 by yuikim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// extern char **g_envp;
+#include "libft.h"
 
-#include "builtins.h"
-
-int	env(char **envp)
+void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-	int	i;
-	i = -1;
-	while (envp[++i])
-		printf("%s\n", envp[i]);
-	return (0);
+	t_list	*node;
+
+	node = *lst;
+	if (!*lst)
+		*lst = new;
+	else
+	{
+		while (node->next)
+		{
+			node = node->next;
+		}
+		node->next = new;
+	}
 }
