@@ -6,13 +6,13 @@
 /*   By: yuikim <yuikim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 18:49:23 by yuikim            #+#    #+#             */
-/*   Updated: 2023/03/27 18:52:23 by yuikim           ###   ########.fr       */
+/*   Updated: 2023/03/28 10:49:35 by yuikim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-void	ms_exit(char **arg)
+void	ms_exit(char **arg, int exit_code)
 {
-	exit(0);
+	exit(exit_code);
 }
