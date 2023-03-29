@@ -6,7 +6,7 @@
 /*   By: youngwch <youngwch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 09:40:28 by youngwch          #+#    #+#             */
-/*   Updated: 2023/03/25 19:38:21 by youngwch         ###   ########.fr       */
+/*   Updated: 2023/03/29 14:31:58 by youngwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ static int	get_str_length(char const *s, char c)
 	{
 		if (*(s + length) == c)
 			return (length);
-		if(s[length] == 34) // 34 == "
+		if(s[length] == 34)
 		{
 			length ++;
 			while(s[length] != 34)
 				length ++;
 		}
-		if(s[length] == 39) // 39 == '
+		if(s[length] == 39)
 		{
 			length ++;
 			while(s[length] != 39)

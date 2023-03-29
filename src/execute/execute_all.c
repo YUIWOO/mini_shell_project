@@ -1,22 +1,37 @@
 #include "../include/main.h"
 
+int is_main_process_execute(t_execution *execution_ar)
+{
+	if(!execution_ar->exev_argv)
+		return 0;
+	if(is_same_str(execution_ar->exev_argv[0], "cd"))
+		return 1;
+	if(is_same_str(execution_ar->exev_argv[0], "env"))
+		return 1;
+	if(is_same_str(execution_ar->exev_argv[0], "export"))
+		return 1;
+	if(is_same_str(execution_ar->exev_argv[0], "unset"))
+		return 1;
+	if(is_same_str(execution_ar->exev_argv[0], "pwd"))
+		return 1;
+	if(is_same_str(execution_ar->exev_argv[0], "exit"))
+		return 1;
+	return 0;
+}
+
 int execute_iterate(t_execution *execution_ar, char ***envp, int **pipe_ar)
 {
 	int i = -1;
-	int input_fd;
-	int output_fd;
 	int p_count = 0;
 	int pid;
 	while(execution_ar[p_count].is_terminated != NULL_STATE)
 		p_count ++;
-	//pid_buffer = malloc(sizeof(int) * p_count); //fork함수에 free 필요 ?
-	int last_pid;
+	if(p_count == 1 && is_main_process_execute(execution_ar))
+	{
+		return execute(execution_ar, envp, pipe_ar, 0);
+	}
 	while(++i <= p_count)
 	{
-		//waitpid(-1, NULL, 0);
-		//전체 프로세스 종료 확인 후 리턴
-		//여기서 모두 기다리면 될듯 //ls | lll 같은경우 불안정 -> execute 문제인듯 ?
-		//wait(NULL);
 		if(i == p_count)
 		{		
 			int exit_status;
@@ -24,11 +39,10 @@ int execute_iterate(t_execution *execution_ar, char ***envp, int **pipe_ar)
 			{
 				int status;
 				int child_id = wait(&status);
-				if(child_id <= 0)
+				if(child_id < 0)
 					break ;
 				if(child_id == pid)
 				{
-					//printf("catch\n");
 					exit_status = status;
 				}
 			}
@@ -36,21 +50,16 @@ int execute_iterate(t_execution *execution_ar, char ***envp, int **pipe_ar)
 		}
 		pid = fork();
 		if(pid == 0)
-			break ;
+			exit(execute(execution_ar+i, envp, pipe_ar, i));
 		else
 		{
-			//wait(NULL); //추후 수정 일단 동작 확인 용 //yes와 같은 끝나지 않는 동작 병렬적으로 처리되게 하면 됨
 			if(i != 0)
-			{
 				close(pipe_ar[i-1][0]);
-			}
 			if(pipe_ar[i] != NULL)
-			{
 				close(pipe_ar[i][1]);
-			}
+			
 		}
 	}
-	execute(execution_ar+i, envp, pipe_ar, i);
 	return 0;
 }
 
@@ -60,6 +69,23 @@ void free_pipe(int **pipe_ar)
 	while(pipe_ar[++i])
 		free(pipe_ar[i]);
 	free(pipe_ar);
+}
+
+int change_exit_status(int status)
+{
+    if (WIFEXITED(status)) {
+        return(WEXITSTATUS(status));
+    }
+    else if (WIFSIGNALED(status)) {
+		int my_signal = WTERMSIG(status);
+        return(my_signal + 128);
+    }
+	else if(WIFSTOPPED(status))
+	{
+		int my_signal = WSTOPSIG(status);
+		return(my_signal + 128);
+	}
+	return status;
 }
 
 int execute_all(t_execution *execution_ar, char ***envp)
@@ -73,7 +99,7 @@ int execute_all(t_execution *execution_ar, char ***envp)
 		pipe_ar = malloc(sizeof(int *) * (p_count));
 		pipe_ar[p_count - 1] = NULL;	
 	}
-	else //1개 || 0개
+	else
 	{
 		pipe_ar = malloc(sizeof(int *) * 1);
 		pipe_ar[0] = NULL;
@@ -85,6 +111,7 @@ int execute_all(t_execution *execution_ar, char ***envp)
 		pipe(pipe_ar[i]);
 	}
 	int exit_status = execute_iterate(execution_ar, envp, pipe_ar);
+	exit_status = change_exit_status(exit_status);
 	free_pipe(pipe_ar);
 	return exit_status;
 }

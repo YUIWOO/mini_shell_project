@@ -80,7 +80,7 @@ int execute(t_execution *execution, char ***envp, int **pipe_ar, int index)
 	
 	int builtin_flag = check_builtins(execution->exev_argv ,envp);
 	if(builtin_flag != -1)
-		exit(builtin_flag);
+		return(builtin_flag);
 	if(execution->exev_argv[0])
 		cmd_path = make_command_path(execution->exev_argv[0], *envp);
 	else
@@ -92,5 +92,5 @@ int execute(t_execution *execution, char ***envp, int **pipe_ar, int index)
 	}
 	if(execve(cmd_path, execution->exev_argv, *envp) == -1)
 		exit_with_perror(cmd_path);
-	return 123;
+	return -1;
 }

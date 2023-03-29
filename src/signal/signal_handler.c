@@ -36,5 +36,5 @@ void	print_eof(void)
 	printf("\033[1A");
 	printf("\033[6C");
 	printf(" exit\n");
-	exit(-1);
+	exit(0);
 }

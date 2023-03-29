@@ -2,7 +2,7 @@
 #define MAIN_H
 
 #include "main.h"
-#include "../libft/libft.h"
+#include "../../libft/libft.h"
 #include <signal.h>
 #include <stdio.h>
 #include <readline/readline.h>
@@ -34,19 +34,20 @@ typedef struct s_execution
 	t_redirect *redirect_ar;
 }	t_execution;
 
-void categorize_token(t_execution *exe_ptr, char **token_ar, char ***envp);
+void categorize_token(t_execution *exe_ptr, char **token_ar, char ***envp, int exit_code);
 int is_valid_line(char *line);
 void free_execution_ar(t_execution *execution_ar);
 char	**make_token(char const *s);
 char	**pipe_split(char const *s, char c);
 void set_redirect_token(t_redirect *redirect_ptr, char *token);
-t_execution *str_to_execution(char *line, char ***envp);
+t_execution *str_to_execution(char *line, char ***envp, int exit_code);
 void print_all_execution(t_execution *execution_ar);
-int execute(t_execution *execution, char **envp, int **pipe_ar, int index);
+int execute(t_execution *execution, char ***envp, int **pipe_ar, int index);
 char	*make_command_path(char *command, char **envp);
-int execute_all(t_execution *execution_ar, char **envp);
+int execute_all(t_execution *execution_ar, char ***envp);
 void signal_handler(int signum);
-char *token_to_good_token(char *token, char ***envp);
+char *token_to_good_token(char *token, char ***envp, int exit_code);
 void	input_handler(struct termios *term_ptr);
 void	print_eof(void);
+int change_exit_status(int status);
 #endif
