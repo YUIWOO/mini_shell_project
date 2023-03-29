@@ -6,21 +6,21 @@
 /*   By: youngwch <youngwch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 20:09:00 by yuikim            #+#    #+#             */
-/*   Updated: 2023/03/28 20:02:34 by youngwch         ###   ########.fr       */
+/*   Updated: 2023/03/29 20:26:11 by youngwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-int is_same_str(char *str1, char *str2)
+int	is_same_str(char *str1, char *str2)
 {
-	if(!str1 || !str2)
-		return 0;
-	if(ft_strlen(str1) != ft_strlen(str2))
-		return 0;
-	if(ft_strncmp(str1, str2, ft_strlen(str1)) != 0)
-		return 0;
-	return 1;
+	if (!str1 || !str2)
+		return (0);
+	if (ft_strlen(str1) != ft_strlen(str2))
+		return (0);
+	if (ft_strncmp(str1, str2, ft_strlen(str1)) != 0)
+		return (0);
+	return (1);
 }
 
 static int	execute_arg_size_zero(char **args, char ***envp)

@@ -1,162 +1,94 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   token_to_good_token.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: youngwch <youngwch@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/29 19:01:13 by youngwch          #+#    #+#             */
+/*   Updated: 2023/03/29 20:16:10 by youngwch         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/main.h"
 
-extern int exit_code;
+extern int	g_exit_code;
 
-char *make_exit_code(char *str, int index)
+int	handle_single_quote(char **token, int *i)
 {
-	char *left_str = ft_substr(str, 0, index);
-	char *middle_str = ft_itoa(exit_code);
-	char *right_str = ft_substr(str, index + 2, ft_strlen(str)-index-2);
-	char *tmp_str = ft_strjoin(left_str, middle_str);
-	char *ret_str = ft_strjoin(tmp_str, right_str);
+	int	j;
 
-	free(left_str);
-	free(middle_str);
-	free(right_str);
-	free(tmp_str);
-	free(str);
-	return ret_str;
+	j = 1;
+	while ((*token)[*i + j] != 39)
+		j ++;
+	*token = change_single_quote(*token, *i, *i + j);
+	*i = *i + j - 2;
+	if (*i == -1)
+		return (0);
+	if ((*token)[*i] == '\0')
+		return (1);
+	return (0);
 }
 
-int is_env_var(char *str)
+int	handle_double_quote(char **token, int *i, char ***envp)
 {
-	int i = -1;
-	if(str[++i] != '$')
-		return 0;
-	while(str[++i])
+	int	j;
+
+	j = 1;
+	while ((*token)[*i + j] != 34)
+		j ++;
+	*token = change_double_quote(*token, i, *i + j, envp);
+	if (*i == -1)
+		return (0);
+	if ((*token)[*i] == '\0')
+		return (1);
+	return (0);
+}
+
+int	handle_env_var(char **token, int *i, char ***envp)
+{
+	if ((*token)[*i + 1] == '?')
 	{
-		if(ft_isalpha(str[i]) || str[i] == '_')
-			return 1;
+		*token = make_exit_code(*token, *i);
+		(*i)--;
 	}
-	return 0;
-}
-int get_env_var_length(char *str)
-{
-	int i = 1;
-	while(ft_isalpha(str[++i]) || ft_isdigit(str[i]) || str[i] == '_')
+	else if (is_env_var(*token + *i))
 	{
+		*token = change_env_var(*token, *i, *i
+				+ get_env_var_length(*token + *i), envp);
+		(*i)--;
 	}
-	return i - 1;
+	if (*i == -1)
+		return (0);
+	if ((*token)[*i] == '\0')
+		return (1);
+	return (0);
 }
 
-char *change_env_var(char *token, int start, int end, char ***envp)
+char	*token_to_good_token(char *token, char ***envp)
 {
-	char *left_str = ft_substr(token, 0, start);
-	char *key = ft_substr(token, start+1, end - start);
-	char *middle_str = get_env_value(*envp, key);
-	if(!middle_str)
-		middle_str = "";
-	char *right_str = ft_substr(token, end + 1, ft_strlen(token)-end-1);
-	char *tmp_str = ft_strjoin(left_str, middle_str);
-	char *ret_str = ft_strjoin(tmp_str, right_str);
-	free(left_str);
-	free(key);
-	free(right_str);
-	free(tmp_str);
-	free(token);
-	return ret_str;
-}
+	int	i;
 
-char *change_single_quote(char *token, int start, int end)
-{
-	char *left_str = ft_substr(token, 0, start);
-	char *middle_str = ft_substr(token, start+1, end-start-1);
-	char *right_str = ft_substr(token, end + 1, ft_strlen(token)-end-1);
-	char *tmp_str = ft_strjoin(left_str, middle_str);
-	char *ret_str = ft_strjoin(tmp_str, right_str);
-	free(left_str);
-	free(middle_str);
-	free(right_str);
-	free(tmp_str);
-	free(token);
-	return ret_str;
-}
-
-char *change_double_quote(char *token, int *start, int end, char ***envp)
-{
-	char *left_str = ft_substr(token, 0, *start);
-	char *middle_str = ft_substr(token, *start+1, end-*start-1);
-	int i = -1;
-	while(middle_str[++i])
-	{
-		if(middle_str[i] == '$')
+	if (!token)
+		return (NULL);
+	i = -1;
+	while (token[++i])
+	{	
+		if (token[i] == 39)
 		{
-			if(middle_str[i+1] == '?')
-			{
-				middle_str = make_exit_code(middle_str, i);
-				i --;
-			}
-			else if(is_env_var(middle_str + i))
-			{
-				middle_str = change_env_var(middle_str, i, i + get_env_var_length(middle_str + i), envp);
-				i --;
-			}
+			if (handle_single_quote(&token, &i))
+				return (token);
+		}
+		else if (token[i] == 34)
+		{
+			if (handle_double_quote(&token, &i, envp))
+				return (token);
+		}
+		else if (token[i] == '$')
+		{
+			if (handle_env_var(&token, &i, envp))
+				return (token);
 		}
 	}
-	*start += (ft_strlen(middle_str) - 1);
-	char *right_str = ft_substr(token, end + 1, ft_strlen(token)-end-1);
-	char *tmp_str = ft_strjoin(left_str, middle_str);
-	char *ret_str = ft_strjoin(tmp_str, right_str);
-
-	free(left_str);
-	free(middle_str);
-	free(right_str);
-	free(tmp_str);
-	free(token);
-
-	return ret_str;
-}
-
-char *token_to_good_token(char *token, char ***envp)
-{
-	if(!token)
-		return NULL;
-	int i = -1;
-	while(token[++i])
-	{
-		if(token[i] == 39)
-		{
-			int j = 1;
-			while(token[i + j] != 39)
-				j ++;
-			token = change_single_quote(token, i, i+j);
-			i = i + j - 2;
-			if(i == -1)
-				continue;
-			if(!token[i])
-				return token;
-			continue;
-		}
-		if(token[i] == 34)
-		{
-			int j = 1;
-			while(token[i + j] != 34)
-				j ++;
-			token = change_double_quote(token, &i, i+j, envp);
-			if(i == -1)
-				continue;
-			if(!token[i])
-				return token;
-			continue;
-		}
-		if(token[i] == '$')
-		{
-			if(token[i+1] == '?')
-			{
-				token = make_exit_code(token, i);
-				i --;
-			}
-			else if(is_env_var(token + i))
-			{
-				token = change_env_var(token, i, i + get_env_var_length(token + i) , envp);
-				i --;
-			}
-			if(i == -1)
-				continue;
-			if(!token[i])
-				return token;
-			continue;
-		}
-	}
-	return token;
+	return (token);
 }

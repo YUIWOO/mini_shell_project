@@ -6,7 +6,7 @@
 /*   By: youngwch <youngwch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 19:22:12 by yuikim            #+#    #+#             */
-/*   Updated: 2023/03/28 16:06:53 by youngwch         ###   ########.fr       */
+/*   Updated: 2023/03/29 20:24:38 by youngwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ char	*create_env_statement(char *key, char *value)
 	return (str);
 }
 
-
 void	make_env_statement(char ***envp_ptr, char *key, char *value)
 {
 	char	*statement;
@@ -66,7 +65,6 @@ void	append_dptr(char ***dptr, char *statement)
 	int		size;
 	char	**new_dptr;
 
-	// dptr = &g_envp;
 	if (!dptr)
 		return ;
 	size = get_dptr_size(*dptr) + 1;

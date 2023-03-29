@@ -1,8 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   here_doc.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: youngwch <youngwch@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/29 17:52:33 by youngwch          #+#    #+#             */
+/*   Updated: 2023/03/29 17:55:10 by youngwch         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/main.h"
 
-static int ft_find_number_figure(unsigned long long n1, unsigned long long base_len)
+static int	ft_find_number_figure(unsigned long long n1,
+	unsigned long long base_len)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (1)
@@ -15,41 +28,39 @@ static int ft_find_number_figure(unsigned long long n1, unsigned long long base_
 	return (0);
 }
 
-static void	ft_write_base(unsigned long long num, int count, char *base, char *answer)
+static void	ft_write_base(unsigned long long num,
+	int count, char *base, char *answer)
 {
-    int base_len;
+	int	base_len;
 
-    base_len = ft_strlen(base);
+	base_len = ft_strlen(base);
 	if (count != 0)
 	{
 		ft_write_base(num / base_len, count - 1, base, answer);
 		answer[count] = base[num % base_len];
-	}		
+	}
 }
 
-static char    *get_ptr_str(char *ptr)
+char	*get_ptr_str(int *ptr)
 {
-    char                *answer;
-    unsigned long long  temp;
-    int                 len;
+	char				*answer;
+	unsigned long long	temp;
+	int					len;
 
-    temp = (unsigned long long)ptr;
-    len = ft_find_number_figure(temp, 16);
-    answer = malloc(sizeof(char) * (len + 2));
-    answer[0] = '.';
-    ft_write_base(temp, len, "0123456789abcdef", answer);
-    answer[len + 1] = 0;
-    return (answer);
+	temp = (unsigned long long)ptr;
+	len = ft_find_number_figure(temp, 16);
+	answer = malloc(sizeof(char) * (len + 2));
+	answer[0] = '.';
+	ft_write_base(temp, len, "0123456789abcdef", answer);
+	answer[len + 1] = 0;
+	return (answer);
 }
 
-int open_here_doc(char *limiter, char **temp_file)// 일단 수정할 필요 있음
+int	open_here_doc(char *limiter, char **temp_file)
 {
 	int		temp_file_fd;
-	char	*ptr;
-    char    *line;
+	char	*line;
 
-    ptr = malloc(sizeof(char) * 2);
-	*temp_file = get_ptr_str(ptr);
 	temp_file_fd = open(*temp_file, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	while (1)
 	{
@@ -62,21 +73,23 @@ int open_here_doc(char *limiter, char **temp_file)// 일단 수정할 필요 있
 		free(line);
 	}
 	free(line);
-    free(ptr);
 	close(temp_file_fd);
-    return (temp_file_fd);
+	temp_file_fd = open(*temp_file, O_RDONLY,
+			S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+	return (temp_file_fd);
 }
 
 void	remove_temp_file(t_execution *execution)
 {
-	int	i = -1;
+	int	i;
+
+	i = -1;
 	while ((execution->redirect_ar)[++i].type != NULL_STATE)
 	{
-		if ((execution->redirect_ar)[i].temp_file)
+		if ((execution->redirect_ar)[i].type == REDIR_HEREDOC)
 		{
 			unlink((execution->redirect_ar)[i].temp_file);
 			free((execution->redirect_ar)[i].temp_file);
 		}
 	}
 }
-

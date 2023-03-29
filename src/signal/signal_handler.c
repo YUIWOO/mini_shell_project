@@ -1,12 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   signal_handler.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: youngwch <youngwch@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/29 20:22:29 by youngwch          #+#    #+#             */
+/*   Updated: 2023/03/29 20:22:29 by youngwch         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/main.h"
 
-extern int exit_code;
+extern int	g_exit_code;
 
 void	signal_handler(int signum)
 {
 	if (signum == SIGINT)
 	{
-		exit_code = 1;
+		g_exit_code = 1;
 		printf("\n");
 		rl_on_new_line();
 		rl_replace_line("", 1);
@@ -16,21 +28,18 @@ void	signal_handler(int signum)
 	if (signum == SIGTERM)
 	{
 		printf(" exit\n");
-		exit(-1); 
+		exit(-1);
 	}
-	// if (signum == SIGQUIT) 
-	// {
-	// 	return ;
-	// }
+	if (signum == SIGQUIT)
+	{
+		return ;
+	}
 }
 
 void	input_handler(struct termios *term_ptr)
 {
 	tcgetattr(STDIN_FILENO, term_ptr);
-	// term_ptr->c_lflag &= ~(ICANON | ECHO);
 	term_ptr->c_lflag &= ~(ECHOCTL);
-	// term_ptr->c_cc[VMIN] = 1;
-	// term_ptr->c_cc[VTIME] = 0;
 	tcsetattr(STDIN_FILENO, TCSANOW, term_ptr);
 }
 

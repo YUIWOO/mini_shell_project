@@ -6,59 +6,53 @@
 /*   By: youngwch <youngwch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 09:40:28 by youngwch          #+#    #+#             */
-/*   Updated: 2023/03/27 19:35:17 by youngwch         ###   ########.fr       */
+/*   Updated: 2023/03/29 18:54:18 by youngwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/main.h"
 
-static int check_redirect(char const *s, char c)
-{
-	int length = 0;
-	if(s[length] == c)
-	{
-		length ++;
-		if(s[length] == c)
-			length ++;
-		while(s[length] == ' ')
-			length ++;
-		while(s[length] != ' ' && s[length] != '\0' && s[length] != '<' && s[length] != '>')
-			length ++;
-	}
-	return length;
-}
-
-static int	get_token_length(char const *s)
+static int	check_redirect(char *s, char c)
 {
 	int	length;
 
 	length = 0;
-	while (*(s + length))
+	if (s[length] == c)
 	{
-		if(check_redirect(s, '>'))
-			return check_redirect(s, '>');
-		if(check_redirect(s, '<'))
-			return check_redirect(s, '<');
-		if (s[length] == ' ' || s[length] == '>' || s[length] == '<')
-			return (length);
-		if(s[length] == 34) // 34 == "
-		{
-			length ++;
-			while(s[length] != 34)
-				length ++;
-		}
-		if(s[length] == 39) // 39 == '
-		{
-			length ++;
-			while(s[length] != 39)
-				length ++;
-		}
 		length ++;
+		if (s[length] == c)
+			length ++;
+		while (s[length] == ' ')
+			length ++;
+		while (s[length] != ' ' && s[length] != '\0'
+			&& s[length] != '<' && s[length] != '>')
+			length ++;
 	}
 	return (length);
 }
 
-static int	count_token(char const *s)
+static int	get_token_length(char *s)
+{
+	int	length;
+
+	length = -1;
+	while (*(s + ++length))
+	{
+		if (check_redirect(s, '>'))
+			return (check_redirect(s, '>'));
+		if (check_redirect(s, '<'))
+			return (check_redirect(s, '<'));
+		if (s[length] == ' ' || s[length] == '>' || s[length] == '<')
+			return (length);
+		if (s[length] == 39)
+			length += get_str_length_by_limiter(s, length, 39);
+		if (s[length] == 34)
+			length += get_str_length_by_limiter(s, length, 34);
+	}
+	return (length);
+}
+
+static int	count_token(char *s)
 {
 	int	word_count;
 
@@ -76,7 +70,7 @@ static int	count_token(char const *s)
 	return (word_count);
 }
 
-static int	token_alloc_assign_ptr(char **retptr, char const *s)
+static int	token_alloc_assign_ptr(char **retptr, char *s)
 {
 	int	word_count;
 	int	tmp;
@@ -103,7 +97,7 @@ static int	token_alloc_assign_ptr(char **retptr, char const *s)
 	return (word_count);
 }
 
-char	**make_token(char const *s)
+char	**make_token(char *s)
 {
 	int		word_counting;
 	char	**retptr;

@@ -6,7 +6,7 @@
 /*   By: youngwch <youngwch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 15:45:45 by youngwch          #+#    #+#             */
-/*   Updated: 2023/03/28 11:39:13 by youngwch         ###   ########.fr       */
+/*   Updated: 2023/03/29 17:56:00 by youngwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static char	*select_exec_path(char *command, char **env_path_array)
 		if (access(exec_path, F_OK) == 0)
 			break ;
 		free(exec_path);
-		if (env_path_array[i+1] == NULL)
+		if (env_path_array[i + 1] == NULL)
 			exec_path = NULL;
 	}
 	free_string_array(env_path_array);

@@ -6,13 +6,13 @@
 /*   By: youngwch <youngwch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 09:40:28 by youngwch          #+#    #+#             */
-/*   Updated: 2023/03/29 14:31:58 by youngwch         ###   ########.fr       */
+/*   Updated: 2023/03/29 18:55:08 by youngwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/main.h"
 
-static int	get_str_length(char const *s, char c)
+static int	get_str_length(char *s, char c)
 {
 	int	length;
 
@@ -21,16 +21,16 @@ static int	get_str_length(char const *s, char c)
 	{
 		if (*(s + length) == c)
 			return (length);
-		if(s[length] == 34)
+		if (s[length] == 34)
 		{
 			length ++;
-			while(s[length] != 34)
+			while (s[length] != 34)
 				length ++;
 		}
-		if(s[length] == 39)
+		if (s[length] == 39)
 		{
 			length ++;
-			while(s[length] != 39)
+			while (s[length] != 39)
 				length ++;
 		}
 		length ++;
@@ -38,7 +38,7 @@ static int	get_str_length(char const *s, char c)
 	return (length);
 }
 
-static int	count_str(char const *s, char c)
+static int	count_str(char *s, char c)
 {
 	int	word_count;
 
@@ -56,7 +56,7 @@ static int	count_str(char const *s, char c)
 	return (word_count);
 }
 
-static int	str_alloc_assign_ptr(char **retptr, char const *s, char c)
+static int	str_alloc_assign_ptr(char **retptr, char *s, char c)
 {
 	int	word_count;
 	int	tmp;
@@ -83,7 +83,7 @@ static int	str_alloc_assign_ptr(char **retptr, char const *s, char c)
 	return (word_count);
 }
 
-char	**pipe_split(char const *s, char c)
+char	**pipe_split(char *s, char c)
 {
 	int		word_counting;
 	char	**retptr;
