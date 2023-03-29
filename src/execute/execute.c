@@ -1,12 +1,12 @@
 #include "../include/main.h"
 
-void	exit_with_perror(char *message)
+static void	exit_with_perror(char *message)
 {
 	perror(message);
 	exit(1);
 }
 
-int	open_file(char *file_name, int option)
+static int	open_file(char *file_name, int option)
 {
 	char	*file_path;
 	int		fd;
@@ -22,7 +22,7 @@ int	open_file(char *file_name, int option)
 	return (fd);
 }
 
-void set_fd(t_redirect *redirect, int *i_fd_ref, int *o_fd_ref)
+static void set_fd(t_redirect *redirect, int *i_fd_ref, int *o_fd_ref)
 {
 	int i = 0;
 	int option;
@@ -58,6 +58,8 @@ int execute(t_execution *execution, char ***envp, int **pipe_ar, int index)
 {
 	int input_fd;
 	int output_fd;
+	char *cmd_path;
+
 	if(index == 0)
 			input_fd = 0;
 	else
@@ -66,9 +68,7 @@ int execute(t_execution *execution, char ***envp, int **pipe_ar, int index)
 		close(pipe_ar[index-1][1]);
 	}
 	if(pipe_ar[index] == NULL)
-	{
 		output_fd = 1;
-	}
 	else
 	{
 		output_fd = pipe_ar[index][1];
@@ -77,8 +77,6 @@ int execute(t_execution *execution, char ***envp, int **pipe_ar, int index)
 	set_fd(execution->redirect_ar, &input_fd, &output_fd);
 	dup2(input_fd, 0);
 	dup2(output_fd, 1);
-	char *cmd_path;
-	
 	int builtin_flag = check_builtins(execution->exev_argv ,envp);
 	if(builtin_flag != -1)
 		return(builtin_flag);

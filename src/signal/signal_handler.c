@@ -1,9 +1,12 @@
 #include "../include/main.h"
 
+extern int exit_code;
+
 void	signal_handler(int signum)
 {
 	if (signum == SIGINT)
 	{
+		exit_code = 1;
 		printf("\n");
 		rl_on_new_line();
 		rl_replace_line("", 1);

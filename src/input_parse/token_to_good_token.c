@@ -1,6 +1,8 @@
 #include "../include/main.h"
 
-char *make_exit_code(char *str, int index, int exit_code)
+extern int exit_code;
+
+char *make_exit_code(char *str, int index)
 {
 	char *left_str = ft_substr(str, 0, index);
 	char *middle_str = ft_itoa(exit_code);
@@ -70,7 +72,7 @@ char *change_single_quote(char *token, int start, int end)
 	return ret_str;
 }
 
-char *change_double_quote(char *token, int *start, int end, char ***envp, int exit_code)
+char *change_double_quote(char *token, int *start, int end, char ***envp)
 {
 	char *left_str = ft_substr(token, 0, *start);
 	char *middle_str = ft_substr(token, *start+1, end-*start-1);
@@ -81,12 +83,12 @@ char *change_double_quote(char *token, int *start, int end, char ***envp, int ex
 		{
 			if(middle_str[i+1] == '?')
 			{
-				middle_str = make_exit_code(middle_str, i, exit_code);
+				middle_str = make_exit_code(middle_str, i);
 				i --;
 			}
 			else if(is_env_var(middle_str + i))
 			{
-				middle_str = change_env_var(middle_str, i, i + get_env_var_length(middle_str + i) , envp);
+				middle_str = change_env_var(middle_str, i, i + get_env_var_length(middle_str + i), envp);
 				i --;
 			}
 		}
@@ -105,7 +107,7 @@ char *change_double_quote(char *token, int *start, int end, char ***envp, int ex
 	return ret_str;
 }
 
-char *token_to_good_token(char *token, char ***envp, int exit_code)
+char *token_to_good_token(char *token, char ***envp)
 {
 	if(!token)
 		return NULL;
@@ -130,7 +132,7 @@ char *token_to_good_token(char *token, char ***envp, int exit_code)
 			int j = 1;
 			while(token[i + j] != 34)
 				j ++;
-			token = change_double_quote(token, &i, i+j, envp, exit_code);
+			token = change_double_quote(token, &i, i+j, envp);
 			if(i == -1)
 				continue;
 			if(!token[i])
@@ -141,7 +143,7 @@ char *token_to_good_token(char *token, char ***envp, int exit_code)
 		{
 			if(token[i+1] == '?')
 			{
-				token = make_exit_code(token, i, exit_code);
+				token = make_exit_code(token, i);
 				i --;
 			}
 			else if(is_env_var(token + i))
