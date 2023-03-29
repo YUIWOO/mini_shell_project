@@ -37,6 +37,7 @@ void set_fd(t_redirect *redirect, int *i_fd_ref, int *o_fd_ref)
 			}
 			if(redirect[i].type == REDIR_HEREDOC)
 			{
+				*i_fd_ref = open(".here_doc_tmp", O_CREAT | O_WRONLY | O_TRUNC, 0644);
 				
 			}
 		}
