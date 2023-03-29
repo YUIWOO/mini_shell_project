@@ -3,19 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yuikim <yuikim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: youngwch <youngwch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 11:46:29 by yuikim            #+#    #+#             */
-/*   Updated: 2023/03/24 12:02:10 by yuikim           ###   ########.fr       */
+/*   Updated: 2023/03/28 16:06:42 by youngwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+// extern char **g_envp;
 
 #include "builtins.h"
 
 int	env(char **envp)
 {
 	int	i;
-
 	i = -1;
 	while (envp[++i])
 		printf("%s\n", envp[i]);

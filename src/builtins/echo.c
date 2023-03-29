@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yuikim <yuikim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: youngwch <youngwch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 17:39:16 by yuikim            #+#    #+#             */
-/*   Updated: 2023/03/27 19:36:47 by yuikim           ###   ########.fr       */
+/*   Updated: 2023/03/28 19:42:21 by youngwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,12 @@ int	echo(char **arg)
 	int	i;
 
 	new_line = 1;
-	i = -1;
+	i = 0;
+	if(arg[1] == NULL)
+	{
+		printf("\n");
+		return 0;
+	}
 	while (arg[++i])
 	{
 		if (is_slash_char(arg[i], 'n'))
@@ -42,7 +47,7 @@ int	echo(char **arg)
 			break ;
 	}
 	if (new_line)
-		i = 0;
+		i = 1;
 	printf("%s", arg[i]);
 	while (arg[++i])
 		printf(" %s", arg[i]);

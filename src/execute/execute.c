@@ -54,7 +54,7 @@ void set_fd(t_redirect *redirect, int *i_fd_ref, int *o_fd_ref)
 }
 
 
-int execute(t_execution *execution, char **envp, int **pipe_ar, int index)
+int execute(t_execution *execution, char ***envp, int **pipe_ar, int index)
 {
 	int input_fd;
 	int output_fd;
@@ -78,19 +78,20 @@ int execute(t_execution *execution, char **envp, int **pipe_ar, int index)
 	dup2(input_fd, 0);
 	dup2(output_fd, 1);
 	char *cmd_path;
+	
+	int builtin_flag = check_builtins(execution->exev_argv ,envp);
+	if(builtin_flag != -1)
+		return(builtin_flag);
 	if(execution->exev_argv[0])
-		cmd_path = make_command_path(execution->exev_argv[0], envp);
+		cmd_path = make_command_path(execution->exev_argv[0], *envp);
 	else
 		exit(0);
-	// //내가 한거
-	// if (check_builtins(execution->exev_argv))
-	// 	return ;
 	if(!cmd_path)
 	{
-			if(execve(execution->exev_argv[0], execution->exev_argv, envp) == -1)
+			if(execve(execution->exev_argv[0], execution->exev_argv, *envp) == -1)
 				exit_with_perror(execution->exev_argv[0]);
 	}
-	if(execve(cmd_path, execution->exev_argv, envp) == -1)
+	if(execve(cmd_path, execution->exev_argv, *envp) == -1)
 		exit_with_perror(cmd_path);
-	return 123;
+	return -1;
 }
