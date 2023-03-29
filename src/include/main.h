@@ -25,6 +25,7 @@ typedef struct s_redirect
 {
 	int type;
 	char *file_name;
+	char *temp_file;
 }	t_redirect;
 
 typedef struct s_execution
@@ -49,6 +50,8 @@ void signal_handler(int signum);
 char *token_to_good_token(char *token, char ***envp, int exit_code);
 void	input_handler(struct termios *term_ptr);
 void	print_eof(void);
-int		open_here_doc(char *limiter);
 int change_exit_status(int status);
+int open_here_doc(char *limiter, char **temp_file);
+void	remove_temp_file(t_execution *execution);
+
 #endif

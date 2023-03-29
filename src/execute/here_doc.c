@@ -47,11 +47,10 @@ int open_here_doc(char *limiter, char **temp_file)// 일단 수정할 필요 있
 	int		temp_file_fd;
 	char	*ptr;
     char    *line;
-	char	*temp_file_name;
 
     ptr = malloc(sizeof(char) * 2);
-	*temp_file_name = get_ptr_str(ptr);
-	temp_file_fd = open(*temp_file_name, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	*temp_file = get_ptr_str(ptr);
+	temp_file_fd = open(*temp_file, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	while (1)
 	{
 		write(1, "> ", 2);
@@ -81,12 +80,3 @@ void	remove_temp_file(t_execution *execution)
 	}
 }
 
-int main()
-{
-    char *str = "euijin";;
-    printf("%s\n",get_ptr_str(str));
-    system("leaks a.out");
-
-    for (int i = 0; i < 1 ; i++)
-        open_here_doc("LIMITER");
-}
