@@ -2,7 +2,7 @@
 #define MAIN_H
 
 #include "main.h"
-#include "../libft/libft.h"
+#include "../../libft/libft.h"
 #include <signal.h>
 #include <stdio.h>
 #include <readline/readline.h>
@@ -49,4 +49,5 @@ void signal_handler(int signum);
 char *token_to_good_token(char *token, char ***envp);
 void	input_handler(struct termios *term_ptr);
 void	print_eof(void);
+int		open_here_doc(char *limiter);
 #endif
