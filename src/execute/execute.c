@@ -37,7 +37,8 @@ void set_fd(t_redirect *redirect, int *i_fd_ref, int *o_fd_ref)
 			}
 			if(redirect[i].type == REDIR_HEREDOC)
 			{
-				
+				*i_fd_ref = open_here_doc(redirect[i].file_name, &(redirect[i].temp_file));
+				//free 해주어야 할 필요 있음
 			}
 		}
 		else if(redirect[i].type == REDIR_OUT || redirect[i].type == REDIR_APPEND)

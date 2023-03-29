@@ -49,5 +49,6 @@ void signal_handler(int signum);
 char *token_to_good_token(char *token, char ***envp, int exit_code);
 void	input_handler(struct termios *term_ptr);
 void	print_eof(void);
+int		open_here_doc(char *limiter);
 int change_exit_status(int status);
 #endif
