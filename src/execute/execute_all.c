@@ -25,7 +25,10 @@ int execute_iterate(t_execution *execution_ar, char **envp, int **pipe_ar)
 				int status;
 				int child_id = wait(&status);
 				if(child_id <= 0)
+				{
+					remove_temp_file(execution_ar);
 					break ;
+				}
 				if(child_id == pid)
 				{
 					//printf("catch\n");
