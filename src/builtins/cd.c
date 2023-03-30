@@ -6,7 +6,7 @@
 /*   By: youngwch <youngwch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 13:29:05 by yuikim            #+#    #+#             */
-/*   Updated: 2023/03/28 15:38:44 by youngwch         ###   ########.fr       */
+/*   Updated: 2023/03/30 19:23:34 by youngwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,22 +35,19 @@ int	cd(char *path, char ***envp)
 	char	*new_path;
 	char	*buffer;
 
+	printf("here %s\n", path);
 	buffer = get_pwd();
 	set_env_value(envp, "OLDPWD", buffer);
 	free(buffer);
-	path_info = ft_split(path, '/');
-	if (ft_strncmp(path_info[0], "~",
-			ft_strlen(path_info[0])) == 0)
-	{
-		free(path_info[0]);
-		path_info[0] = get_env_value(*envp, "HOME");
-		new_path = str_total_join(path_info, "/");
-		free_dptr(path_info, HOME);
-	}
+	if (!path)
+		new_path = ft_strdup(get_env_value(*envp, "HOME"));//str_total_join(get_env_value(*envp, "HOME"), "/");
 	else
 	{
+		path_info = ft_split(path, '/');
 		new_path = str_total_join(path_info, "/");
 		free_dptr(path_info, DEFAULT);
+		//new_path = ft_strjoin("/", new_path);
 	}
+	printf("%s\n", new_path);
 	return (change_pwd_env(new_path, envp));
 }

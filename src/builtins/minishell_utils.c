@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yuikim <yuikim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: youngwch <youngwch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 15:25:04 by yuikim            #+#    #+#             */
-/*   Updated: 2023/03/27 20:56:35 by yuikim           ###   ########.fr       */
+/*   Updated: 2023/03/30 19:36:50 by youngwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	show_error(char *cmd)
 {
-	ft_putstr_fd("bash: ", 2);
 	perror(cmd);
 }
 

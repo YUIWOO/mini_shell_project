@@ -6,7 +6,7 @@
 /*   By: youngwch <youngwch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 19:01:13 by youngwch          #+#    #+#             */
-/*   Updated: 2023/03/29 20:16:10 by youngwch         ###   ########.fr       */
+/*   Updated: 2023/03/30 19:32:08 by youngwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,35 @@ int	handle_env_var(char **token, int *i, char ***envp)
 	return (0);
 }
 
+char	*handle_home_path(char *token, char ***envp)
+{
+	char	*ret_str;
+	char	*tmp_str;
+
+	if (is_same_str(token, "~"))
+	{
+		free(token);
+		return (strdup(get_env_value(*envp, "HOME")));
+	}
+	else if (ft_strncmp("~/", token, 2) == 0)
+	{
+		tmp_str = ft_substr(token, 1, ft_strlen(token) - 1);
+		ret_str = ft_strjoin(get_env_value(*envp, "HOME"), tmp_str);
+		free(tmp_str);
+		free(token);
+		return (ret_str);
+	}
+	else
+		return (token);
+}
+
 char	*token_to_good_token(char *token, char ***envp)
 {
 	int	i;
 
 	if (!token)
 		return (NULL);
+	token = handle_home_path(token, envp);
 	i = -1;
 	while (token[++i])
 	{	
