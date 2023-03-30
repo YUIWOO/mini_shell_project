@@ -6,7 +6,7 @@
 /*   By: yuikim <yuikim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 11:33:04 by yuikim            #+#    #+#             */
-/*   Updated: 2023/03/30 21:35:50 by yuikim           ###   ########.fr       */
+/*   Updated: 2023/03/30 21:39:57 by yuikim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	export(char **args, char ***envp)
 		value = temp + 1;
 		if (key[0] != '_' && !ft_isalpha(key[0]))
 		{
-			printf("bash: unset: `%s': not a valid identifier\n", key);
+			printf("bash: export: `%s': not a valid identifier\n", key);
 			continue ;
 		}
 		// export 1=B, A=1 일 경우 첫번째 거는 안되지만 두번째건 됨
