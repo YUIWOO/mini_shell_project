@@ -6,7 +6,7 @@
 /*   By: youngwch <youngwch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 18:08:18 by youngwch          #+#    #+#             */
-/*   Updated: 2023/03/29 20:22:55 by youngwch         ###   ########.fr       */
+/*   Updated: 2023/03/30 19:35:27 by youngwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@
 # include <string.h>
 # include <fcntl.h>
 # include <termios.h>
+# include <sys/stat.h>
+# include <sys/errno.h>
 
 # define REDIR_IN 1
 # define REDIR_OUT 2
@@ -79,4 +81,7 @@ char		*change_double_quote(char *token,
 				int *start, int end, char ***envp);
 char		*change_single_quote(char *token, int start, int end);
 char		*change_env_var(char *token, int start, int end, char ***envp);
+void		exit_with_perror(char *message);
+int			open_file(char *file_name, int option);
+void		exit_with_perror(char *message);
 #endif

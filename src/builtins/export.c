@@ -6,30 +6,33 @@
 /*   By: youngwch <youngwch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 11:33:04 by yuikim            #+#    #+#             */
-/*   Updated: 2023/03/28 16:02:12 by youngwch         ###   ########.fr       */
+/*   Updated: 2023/03/30 19:37:06 by youngwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-int	export(char *arg, char ***envp)
+int	export(char **args, char ***envp)
 {
 	char	*arg_copy;
 	char	*key;
 	char	*value;
 	char	*temp;
 
-	if (!arg || !(*envp))
-		return (1);
-	if (ft_strchr(arg, '=') == NULL)
-		return (1);
-	arg_copy = ft_strdup(arg);
-	temp = ft_strchr(arg_copy, '=');
-	*temp = 0;
-	key = arg_copy;
-	value = temp + 1;
-	set_env_value(envp, key, value);
-	free(key);
+	while (*(++args))
+	{
+		if (!(*envp))
+			return (1);
+		if (ft_strchr(*args, '=') == NULL)
+			continue ;
+		arg_copy = ft_strdup(*args);
+		temp = ft_strchr(arg_copy, '=');
+		*temp = 0;
+		key = arg_copy;
+		value = temp + 1;
+		set_env_value(envp, key, value);
+		free(key);
+	}
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: youngwch <youngwch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 17:35:26 by youngwch          #+#    #+#             */
-/*   Updated: 2023/03/29 17:43:36 by youngwch         ###   ########.fr       */
+/*   Updated: 2023/03/30 19:33:54 by youngwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,9 @@ int	change_exit_status(int status)
 	int	my_signal;
 
 	if (WIFEXITED(status))
+	{
 		return (WEXITSTATUS(status));
+	}
 	else if (WIFSIGNALED(status))
 	{
 		my_signal = WTERMSIG(status);

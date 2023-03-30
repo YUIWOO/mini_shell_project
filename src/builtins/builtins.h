@@ -6,7 +6,7 @@
 /*   By: youngwch <youngwch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 11:38:07 by yuikim            #+#    #+#             */
-/*   Updated: 2023/03/29 20:38:50 by youngwch         ###   ########.fr       */
+/*   Updated: 2023/03/30 15:47:44 by youngwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ int		env(char **envp);
 int		pwd(void);
 int		cd(char *path, char ***envp);
 char	*get_pwd(void);
-int		export(char *arg, char ***envp);
-int		unset(char *key, char **envp);
+int		export(char **args, char ***envp);
+int		unset(char **args, char **envp);
 int		echo(char **arg);
 void	ms_exit(char **arg, int exit_code);
 int		export_no_option(char **envp);

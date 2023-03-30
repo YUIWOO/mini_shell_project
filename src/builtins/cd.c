@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   cd.c                                               :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: yuikim <yuikim@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/24 13:29:05 by yuikim            #+#    #+#             */
-/*   Updated: 2023/03/30 19:24:54 by yuikim           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "builtins.h"
 
 static int	change_pwd_env(char *new_path, char ***envp)
@@ -35,6 +23,7 @@ int	cd(char *path, char ***envp)
 	char	*new_path;
 	char	*buffer;
 
+	printf("here %s\n", path);
 	buffer = get_pwd();
 	set_env_value(envp, "OLDPWD", buffer);
 	free(buffer);

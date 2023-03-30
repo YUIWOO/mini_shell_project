@@ -6,7 +6,7 @@
 /*   By: youngwch <youngwch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 15:45:45 by youngwch          #+#    #+#             */
-/*   Updated: 2023/03/29 17:56:00 by youngwch         ###   ########.fr       */
+/*   Updated: 2023/03/30 19:33:28 by youngwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,16 @@ void	free_string_array(char **str_array)
 	free(str_array);
 }
 
+int	is_regular_file(char *exec_path)
+{
+	struct stat	buf;
+
+	stat(exec_path, &buf);
+	if ((buf.st_mode & S_IFMT) == S_IFREG)
+		return (1);
+	return (0);
+}
+
 static char	*select_exec_path(char *command, char **env_path_array)
 {
 	char	*exec_path;
@@ -34,7 +44,7 @@ static char	*select_exec_path(char *command, char **env_path_array)
 		tmp_str = ft_strjoin("/", command);
 		exec_path = ft_strjoin(env_path_array[i], tmp_str);
 		free(tmp_str);
-		if (access(exec_path, F_OK) == 0)
+		if (access(exec_path, X_OK | F_OK) == 0 && is_regular_file(exec_path))
 			break ;
 		free(exec_path);
 		if (env_path_array[i + 1] == NULL)
@@ -73,5 +83,7 @@ char	*make_command_path(char *command, char **envp)
 
 	env_path_array = make_exec_path(envp);
 	command_path = select_exec_path(command, env_path_array);
+	if (!command_path)
+		return (command);
 	return (command_path);
 }
