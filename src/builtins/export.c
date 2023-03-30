@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youngwch <youngwch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yuikim <yuikim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 11:33:04 by yuikim            #+#    #+#             */
-/*   Updated: 2023/03/30 19:37:06 by youngwch         ###   ########.fr       */
+/*   Updated: 2023/03/30 21:35:50 by yuikim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,13 @@ int	export(char **args, char ***envp)
 		*temp = 0;
 		key = arg_copy;
 		value = temp + 1;
+		if (key[0] != '_' && !ft_isalpha(key[0]))
+		{
+			printf("bash: unset: `%s': not a valid identifier\n", key);
+			continue ;
+		}
+		// export 1=B, A=1 일 경우 첫번째 거는 안되지만 두번째건 됨
+		//이경우 에러 메세지도 출력
 		set_env_value(envp, key, value);
 		free(key);
 	}
