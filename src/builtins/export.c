@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yuikim <yuikim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: youngwch <youngwch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 11:33:04 by yuikim            #+#    #+#             */
-/*   Updated: 2023/03/30 22:01:50 by yuikim           ###   ########.fr       */
+/*   Updated: 2023/03/31 10:52:25 by youngwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	export(char **args, char ***envp)
 		{
 			if (arg_copy[0] != '_' && !ft_isalpha(arg_copy[0]))
 			{
-				printf("bash: export: `%s': not a valid identifier\n", arg_copy);
+				print_builtin_error(arg_copy);
 				free(arg_copy);
 				continue ;
 			}
@@ -45,13 +45,12 @@ int	export(char **args, char ***envp)
 			value = temp + 1;
 			if (key[0] != '_' && !ft_isalpha(key[0]))
 			{
-				printf("bash: export: `%s': not a valid identifier\n", key);
+				print_builtin_error(key);
 				free(arg_copy);
 				continue ;
 			}
 		}
-		// export 1=B, A=1 일 경우 첫번째 거는 안되지만 두번째건 됨
-		//이경우 에러 메세지도 출력
+		//리턴 밸류 맞추기
 		set_env_value(envp, arg_copy, value);
 		free(arg_copy);
 	}
