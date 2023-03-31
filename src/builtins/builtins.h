@@ -6,7 +6,7 @@
 /*   By: youngwch <youngwch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 11:38:07 by yuikim            #+#    #+#             */
-/*   Updated: 2023/03/31 12:14:45 by youngwch         ###   ########.fr       */
+/*   Updated: 2023/03/31 12:18:58 by youngwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # define BUILTINERROR 123
 
 //builtin
-int		env(char **envp);
+int		env(char **args, char **envp);
 int		pwd(void);
 int		cd(char *path, char ***envp);
 char	*get_pwd(void);

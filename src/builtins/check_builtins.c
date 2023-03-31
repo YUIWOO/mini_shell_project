@@ -6,7 +6,7 @@
 /*   By: youngwch <youngwch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 20:09:00 by yuikim            #+#    #+#             */
-/*   Updated: 2023/03/30 19:45:00 by youngwch         ###   ########.fr       */
+/*   Updated: 2023/03/31 12:18:36 by youngwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,6 @@ int	check_builtins(char **args, char ***envp)
 	if (is_same_str(args[0], "exit"))
 		ms_exit(args, ft_atoi(args[1]) % 256);
 	if (is_same_str(args[0], "env"))
-		return (env(*envp));
+		return (env(args, *envp));
 	return (-1);
 }
