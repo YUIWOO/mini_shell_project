@@ -6,7 +6,7 @@
 /*   By: youngwch <youngwch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 11:38:07 by yuikim            #+#    #+#             */
-/*   Updated: 2023/03/30 15:47:44 by youngwch         ###   ########.fr       */
+/*   Updated: 2023/03/31 10:46:24 by youngwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	make_env_statement(char ***envp_ptr, char *key, char *value);
 void	ft_sort_ascii(char **str_arr, int size);
 int		check_builtins(char **args, char ***envp);
 int		is_same_str(char *str1, char *str2);
+void	print_builtin_error(char *str);
 
 //type
 typedef struct s_info{
