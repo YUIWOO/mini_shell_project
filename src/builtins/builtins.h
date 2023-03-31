@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youngwch <youngwch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yuikim <yuikim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 11:38:07 by yuikim            #+#    #+#             */
-/*   Updated: 2023/03/31 10:46:24 by youngwch         ###   ########.fr       */
+/*   Updated: 2023/03/31 12:41:25 by yuikim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	*get_pwd(void);
 int		export(char **args, char ***envp);
 int		unset(char **args, char **envp);
 int		echo(char **arg);
-void	ms_exit(char **arg, int exit_code);
+void	ms_exit(char **arg);
 int		export_no_option(char **envp);
 
 //utils
