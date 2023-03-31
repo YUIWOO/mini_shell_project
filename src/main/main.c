@@ -6,7 +6,7 @@
 /*   By: youngwch <youngwch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 17:59:58 by youngwch          #+#    #+#             */
-/*   Updated: 2023/03/31 10:05:27 by youngwch         ###   ########.fr       */
+/*   Updated: 2023/03/31 10:15:14 by youngwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,17 @@ int	g_exit_code = 0;
 static void	terminal_routine(char *line,
 		char ***envp, t_execution *execution_ar)
 {
-	if (*line)
-		add_history(line);
+	if (!*line)
+	{
+		free(line);
+		g_exit_code = 0;
+		return ;
+	}
+	add_history(line);
 	if (!is_valid_line(line))
 	{
 		printf("syntax error\n");
-		g_exit_code = 256 + 2;
+		g_exit_code = 258;
 		free(line);
 		return ;
 	}
@@ -49,11 +54,7 @@ int	main(int argc, char **argv, char **envp)
 	{
 		line = readline("bash $ ");
 		if (line)
-		{
-			if (!*line)
-				continue ;
 			terminal_routine(line, &envp, execution_ar);
-		}
 		else
 		{
 			print_eof();
