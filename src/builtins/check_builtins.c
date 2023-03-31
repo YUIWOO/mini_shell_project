@@ -6,7 +6,7 @@
 /*   By: yuikim <yuikim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 20:09:00 by yuikim            #+#    #+#             */
-/*   Updated: 2023/03/31 12:42:11 by yuikim           ###   ########.fr       */
+/*   Updated: 2023/03/31 12:49:25 by yuikim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,6 @@ int	check_builtins(char **args, char ***envp)
 	if (is_same_str(args[0], "exit"))
 		ms_exit(args);
 	if (is_same_str(args[0], "env"))
-		return (env(*envp));
+		return (env(args, *envp));
 	return (-1);
 }

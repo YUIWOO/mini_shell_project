@@ -6,7 +6,7 @@
 /*   By: yuikim <yuikim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 11:38:07 by yuikim            #+#    #+#             */
-/*   Updated: 2023/03/31 12:41:25 by yuikim           ###   ########.fr       */
+/*   Updated: 2023/03/31 12:52:10 by yuikim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,10 @@
 //define
 # define HOME 1
 # define DEFAULT 0
+# define BUILTINERROR 123
 
 //builtin
-int		env(char **envp);
+int		env(char **args, char **envp);
 int		pwd(void);
 int		cd(char *path, char ***envp);
 char	*get_pwd(void);
