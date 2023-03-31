@@ -6,7 +6,7 @@
 /*   By: youngwch <youngwch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 15:45:45 by youngwch          #+#    #+#             */
-/*   Updated: 2023/03/31 13:54:39 by youngwch         ###   ########.fr       */
+/*   Updated: 2023/03/31 17:35:57 by youngwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,15 @@ static char	**make_exec_path(char **envp)
 	int		i;
 
 	i = -1;
+	env_tem_path = NULL;
 	while (*(envp + ++i))
 	{
 		if (ft_strnstr(*(envp + i), "PATH=", ft_strlen(*(envp + i))))
 			env_tem_path = ft_strnstr(*(envp + i), "PATH=",
 					ft_strlen(*(envp + i)));
 	}
+	if (!env_tem_path)
+		return (NULL);
 	split_array = ft_split(env_tem_path, '=');
 	env_path = ft_strdup(*(split_array + 1));
 	free_string_array(split_array);
@@ -72,6 +75,8 @@ char	*make_command_path(char *command, char **envp)
 	char	**env_path_array;
 
 	env_path_array = make_exec_path(envp);
+	if (!env_path_array)
+		return (command);
 	command_path = select_exec_path(command, env_path_array);
 	if (!command_path)
 		return (command);

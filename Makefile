@@ -6,7 +6,7 @@
 #    By: youngwch <youngwch@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/05 09:24:41 by yuikim            #+#    #+#              #
-#    Updated: 2023/03/31 14:14:21 by youngwch         ###   ########.fr        #
+#    Updated: 2023/03/31 17:36:17 by youngwch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,8 +17,6 @@ COMFILE_FLAGS = -lreadline -L${HOME}/.brew/opt/readline/lib
 OBJ_FLAGS = -I${HOME}/.brew/opt/readline/include
 SRCS_DIR = ./src/
 LIBFT_DIR = ./libft/
-
-#-lreadline -L/Users/youngwch/.brew/opt/readline/lib -I/Users/youngwch/.brew/opt/readline/include
 
 SRCS = builtins/cd.c builtins/check_builtins.c builtins/echo.c builtins/env.c\
 		builtins/export.c builtins/minishell_utils.c\
@@ -31,8 +29,6 @@ SRCS = builtins/cd.c builtins/check_builtins.c builtins/echo.c builtins/env.c\
 		parse/categorize_token.c parse/free_execution_ar.c parse/is_valid_line.c parse/make_token.c\
 		parse/parsing_util.c parse/pipe_split.c parse/set_redirect_token.c\
 		parse/str_to_execution.c parse/token_change_func.c parse/token_to_good_token.c\
-
-#-I/Users/youngwch/.brew/opt/readline/include
 
 %.o : %.c
 	$(CC) $(CFLAGS) $(OBJ_FLAGS) -c $< -o $@
