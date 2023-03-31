@@ -6,7 +6,7 @@
 /*   By: youngwch <youngwch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 18:08:18 by youngwch          #+#    #+#             */
-/*   Updated: 2023/03/31 10:05:15 by youngwch         ###   ########.fr       */
+/*   Updated: 2023/03/31 10:20:58 by youngwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ typedef struct s_execution
 }	t_execution;
 
 //execute
-int			execute_all(t_execution *execution_ar, char ***envp);
+void		execute_all(t_execution *execution_ar, char ***envp);
 int			execute_iterate(t_execution *execution_ar,
 				char ***envp, int **pipe_ar);
 int			execute(t_execution *execution,

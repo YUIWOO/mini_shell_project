@@ -6,7 +6,7 @@
 /*   By: youngwch <youngwch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 17:59:58 by youngwch          #+#    #+#             */
-/*   Updated: 2023/03/31 10:15:14 by youngwch         ###   ########.fr       */
+/*   Updated: 2023/03/31 10:19:18 by youngwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	terminal_routine(char *line,
 	line = NULL;
 	if (execution_ar)
 	{
-		g_exit_code = execute_all(execution_ar, envp);
+		execute_all(execution_ar, envp);
 		free_execution_ar(execution_ar);
 	}
 }

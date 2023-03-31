@@ -6,11 +6,13 @@
 /*   By: youngwch <youngwch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 17:35:26 by youngwch          #+#    #+#             */
-/*   Updated: 2023/03/31 10:04:37 by youngwch         ###   ########.fr       */
+/*   Updated: 2023/03/31 10:21:55 by youngwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/main.h"
+
+extern int	g_exit_code;
 
 static void	free_pipe(int **pipe_ar)
 {
@@ -22,25 +24,26 @@ static void	free_pipe(int **pipe_ar)
 	free(pipe_ar);
 }
 
-static int	change_exit_status(int status)
+static void	change_exit_status(int status)
 {
 	int	my_signal;
 
 	if (WIFEXITED(status))
 	{
-		return (WEXITSTATUS(status));
+		g_exit_code = WEXITSTATUS(status);
 	}
 	else if (WIFSIGNALED(status))
 	{
 		my_signal = WTERMSIG(status);
-		return (my_signal + 128);
+		g_exit_code = my_signal + 128;
 	}
 	else if (WIFSTOPPED(status))
 	{
 		my_signal = WSTOPSIG(status);
-		return (my_signal + 128);
+		g_exit_code = my_signal + 128;
 	}
-	return (status);
+	else
+		g_exit_code = status;
 }
 
 static int	**malloc_pipe(t_execution *execution_ar)
@@ -71,14 +74,14 @@ static int	**malloc_pipe(t_execution *execution_ar)
 	return (pipe_ar);
 }
 
-int	execute_all(t_execution *execution_ar, char ***envp)
+void	execute_all(t_execution *execution_ar, char ***envp)
 {
 	int	**pipe_ar;
 	int	exit_status;
 
 	pipe_ar = malloc_pipe(execution_ar);
 	exit_status = execute_iterate(execution_ar, envp, pipe_ar);
-	exit_status = change_exit_status(exit_status);
+	change_exit_status(exit_status);
 	free_pipe(pipe_ar);
-	return (exit_status);
+	return ;
 }
