@@ -6,7 +6,7 @@
 /*   By: youngwch <youngwch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 17:59:58 by youngwch          #+#    #+#             */
-/*   Updated: 2023/03/29 20:46:12 by youngwch         ###   ########.fr       */
+/*   Updated: 2023/03/31 10:05:27 by youngwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,7 @@ int	main(int argc, char **argv, char **envp)
 
 	envp = dptr_dup(envp);
 	input_handler(&term);
-	signal(SIGINT, signal_handler);
-	signal(SIGTERM, signal_handler);
-	signal(SIGQUIT, signal_handler);
+	handle_signal();
 	while (1)
 	{
 		line = readline("bash $ ");

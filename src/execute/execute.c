@@ -6,7 +6,7 @@
 /*   By: youngwch <youngwch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 17:36:08 by youngwch          #+#    #+#             */
-/*   Updated: 2023/03/30 19:34:26 by youngwch         ###   ########.fr       */
+/*   Updated: 2023/03/31 09:28:51 by youngwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,18 +59,21 @@ static void	make_default_iofd(int *input_fd,
 	}	
 }
 
-void	check_invalid_cmd(char *cmd_path)
+static void	check_invalid_cmd(char *cmd_path)
 {
 	int	i;
 
-	i = -1;
-	while (cmd_path[++i])
+	if (!is_path(cmd_path))
 	{
-		if (cmd_path[i] == '/')
-			return ;
+		printf("%s: command not found\n", cmd_path);
+		exit(127);
 	}
-	printf("%s: command not found\n", cmd_path);
-	exit(127);
+	if (is_dir(cmd_path))
+	{
+		printf("%s: is a directory\n", cmd_path);
+		exit(126);
+	}
+	return ;
 }
 
 int	execute(t_execution *execution, char ***envp, int **pipe_ar, int index)
@@ -84,13 +87,15 @@ int	execute(t_execution *execution, char ***envp, int **pipe_ar, int index)
 	set_fd(execution->redirect_ar, &input_fd, &output_fd);
 	dup2(input_fd, 0);
 	dup2(output_fd, 1);
+	if (!execution->exev_argv[0])
+		exit(0);
 	builtin_flag = check_builtins(execution->exev_argv, envp);
 	if (builtin_flag != -1)
 		return (builtin_flag);
-	if (execution->exev_argv[0])
+	if (!is_path(execution->exev_argv[0]))
 		cmd_path = make_command_path(execution->exev_argv[0], *envp);
 	else
-		exit(0);
+		cmd_path = execution->exev_argv[0];
 	check_invalid_cmd(cmd_path);
 	if (execve(cmd_path, execution->exev_argv, *envp) == -1)
 		exit_with_perror(cmd_path);

@@ -6,13 +6,13 @@
 /*   By: youngwch <youngwch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 17:35:26 by youngwch          #+#    #+#             */
-/*   Updated: 2023/03/30 19:33:54 by youngwch         ###   ########.fr       */
+/*   Updated: 2023/03/31 10:04:37 by youngwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/main.h"
 
-void	free_pipe(int **pipe_ar)
+static void	free_pipe(int **pipe_ar)
 {
 	int	i;
 
@@ -22,7 +22,7 @@ void	free_pipe(int **pipe_ar)
 	free(pipe_ar);
 }
 
-int	change_exit_status(int status)
+static int	change_exit_status(int status)
 {
 	int	my_signal;
 
@@ -43,7 +43,7 @@ int	change_exit_status(int status)
 	return (status);
 }
 
-int	**malloc_pipe(t_execution *execution_ar)
+static int	**malloc_pipe(t_execution *execution_ar)
 {
 	int	**pipe_ar;
 	int	p_count;

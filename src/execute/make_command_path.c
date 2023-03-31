@@ -6,13 +6,13 @@
 /*   By: youngwch <youngwch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 15:45:45 by youngwch          #+#    #+#             */
-/*   Updated: 2023/03/30 19:33:28 by youngwch         ###   ########.fr       */
+/*   Updated: 2023/03/31 09:23:10 by youngwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/main.h"
 
-void	free_string_array(char **str_array)
+static void	free_string_array(char **str_array)
 {
 	int	i;
 
@@ -20,16 +20,6 @@ void	free_string_array(char **str_array)
 	while (*(str_array + ++i))
 		free(*(str_array + i));
 	free(str_array);
-}
-
-int	is_regular_file(char *exec_path)
-{
-	struct stat	buf;
-
-	stat(exec_path, &buf);
-	if ((buf.st_mode & S_IFMT) == S_IFREG)
-		return (1);
-	return (0);
 }
 
 static char	*select_exec_path(char *command, char **env_path_array)

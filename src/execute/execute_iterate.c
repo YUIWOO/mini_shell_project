@@ -6,13 +6,15 @@
 /*   By: youngwch <youngwch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 17:35:29 by youngwch          #+#    #+#             */
-/*   Updated: 2023/03/30 19:26:21 by youngwch         ###   ########.fr       */
+/*   Updated: 2023/03/31 09:39:40 by youngwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/main.h"
 
-int	is_main_process_execute(t_execution *execution_ar)
+extern int	g_exit_code;
+
+static int	is_main_process_execute(t_execution *execution_ar)
 {
 	if (!execution_ar->exev_argv)
 		return (0);
@@ -31,7 +33,7 @@ int	is_main_process_execute(t_execution *execution_ar)
 	return (0);
 }
 
-int	wait_child(t_execution *execution_ar, int pid)
+static int	wait_child(t_execution *execution_ar, int pid)
 {
 	int	exit_status;
 	int	status;
@@ -39,6 +41,7 @@ int	wait_child(t_execution *execution_ar, int pid)
 
 	while (1)
 	{
+		g_exit_code = -1;
 		child_id = wait(&status);
 		if (child_id <= 0)
 		{
