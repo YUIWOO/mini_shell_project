@@ -6,58 +6,25 @@
 /*   By: youngwch <youngwch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 11:33:04 by yuikim            #+#    #+#             */
-/*   Updated: 2023/03/31 10:52:25 by youngwch         ###   ########.fr       */
+/*   Updated: 2023/03/31 12:15:30 by youngwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-int	export(char **args, char ***envp)
+static int	is_valid_env_str(char *str, int *ret)
 {
-	char	*arg_copy;
-	char	*key;
-	char	*value;
-	char	*temp;
-
-	if (get_dptr_size(args) == 1)
-		return export_no_option(*envp);
-	while (*(++args))
+	if (str[0] != '_' && !ft_isalpha(str[0]))
 	{
-		if (!(*envp))
-			return (1);
-		arg_copy = ft_strdup(*args);
-		temp = ft_strchr(arg_copy, '=');
-		if (temp == NULL)
-		{
-			if (arg_copy[0] != '_' && !ft_isalpha(arg_copy[0]))
-			{
-				print_builtin_error(arg_copy);
-				free(arg_copy);
-				continue ;
-			}
-			else
-				value = "";
-		}
-		else
-		{
-			*temp = 0;
-			key = arg_copy;
-			value = temp + 1;
-			if (key[0] != '_' && !ft_isalpha(key[0]))
-			{
-				print_builtin_error(key);
-				free(arg_copy);
-				continue ;
-			}
-		}
-		//리턴 밸류 맞추기
-		set_env_value(envp, arg_copy, value);
-		free(arg_copy);
+		print_builtin_error(str);
+		free(str);
+		*ret = 1;
+		return (0);
 	}
-	return (0);
+	return (1);
 }
 
-int	export_no_option(char **envp)
+static int	export_no_option(char **envp)
 {
 	char	**envp_copy;
 	int		i;
@@ -69,4 +36,29 @@ int	export_no_option(char **envp)
 		printf("declare -x %s\n", envp[i]);
 	free_dptr(envp_copy, DEFAULT);
 	return (0);
+}
+
+int	export(char **args, char ***envp)
+{
+	char	*arg_copy;
+	char	*temp;
+	int		ret;
+
+	ret = 0;
+	if (get_dptr_size(args) == 1)
+		return (export_no_option(*envp));
+	while (*(++args))
+	{
+		arg_copy = ft_strdup(*args);
+		if (!is_valid_env_str(arg_copy, &ret))
+			continue ;
+		temp = ft_strchr(arg_copy, '=');
+		if (temp != NULL)
+		{
+			*temp = 0;
+			set_env_value(envp, arg_copy, temp + 1);
+		}
+		free(arg_copy);
+	}
+	return (ret);
 }

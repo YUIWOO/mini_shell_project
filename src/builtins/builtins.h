@@ -6,7 +6,7 @@
 /*   By: youngwch <youngwch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 11:38:07 by yuikim            #+#    #+#             */
-/*   Updated: 2023/03/31 10:46:24 by youngwch         ###   ########.fr       */
+/*   Updated: 2023/03/31 12:14:45 by youngwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 //define
 # define HOME 1
 # define DEFAULT 0
+# define BUILTINERROR 123
 
 //builtin
 int		env(char **envp);
@@ -31,7 +32,6 @@ int		export(char **args, char ***envp);
 int		unset(char **args, char **envp);
 int		echo(char **arg);
 void	ms_exit(char **arg, int exit_code);
-int		export_no_option(char **envp);
 
 //utils
 void	show_error(char *cmd);
