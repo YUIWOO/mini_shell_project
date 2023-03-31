@@ -1,0 +1,10 @@
+{
+	"files.associations": {
+		"main.h": "c",
+		"libft.h": "c",
+		"sstream": "c",
+		"fcntl.h": "c",
+		"builtins.h": "c",
+		"signal.h": "c"
+	}
+}

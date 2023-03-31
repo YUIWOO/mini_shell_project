@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yuikim <yuikim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: youngwch <youngwch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 18:49:23 by yuikim            #+#    #+#             */
-/*   Updated: 2023/03/31 12:49:51 by yuikim           ###   ########.fr       */
+/*   Updated: 2023/03/31 13:33:41 by youngwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtins.h"
+#include "../include/builtins.h"
 
 static	int	check_digit(char ch)
 {
@@ -22,7 +22,6 @@ static	int	check_digit(char ch)
 static int	is_valid(char *num_str)
 {
 	int	i;
-	int	space_idx;
 
 	i = 0;
 	while (num_str[i])
@@ -35,7 +34,7 @@ static int	is_valid(char *num_str)
 		i++;
 	while (num_str[i])
 	{
-		if (ft_isdigit(num_str[i]))
+		if (!ft_isdigit(num_str[i]))
 			return (0);
 		i++;
 	}
@@ -73,7 +72,7 @@ static long long	get_exit_status(const char *str)
 
 static void	print_exit_error_message(char *str)
 {
-	ft_putstr_fd("bash: exit: ", 2);
+	ft_putstr_fd("exit: ", 2);
 	ft_putstr_fd(str, 2);
 	ft_putstr_fd(": numeric argument required\n", 2);
 }
@@ -92,5 +91,5 @@ void	ms_exit(char **arg)
 		print_exit_error_message(arg[1]);
 		exit(255);
 	}
-	exit((int)ft_atoll(arg[1]) % 256);
+	exit((int)get_exit_status(arg[1]) % 256);
 }

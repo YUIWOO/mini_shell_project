@@ -6,11 +6,11 @@
 /*   By: youngwch <youngwch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 17:39:16 by yuikim            #+#    #+#             */
-/*   Updated: 2023/03/30 19:44:56 by youngwch         ###   ########.fr       */
+/*   Updated: 2023/03/31 13:33:39 by youngwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtins.h"
+#include "../include/builtins.h"
 
 static int	is_slash_char(char *str, char target)
 {

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   check_builtins.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yuikim <yuikim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: youngwch <youngwch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 20:09:00 by yuikim            #+#    #+#             */
-/*   Updated: 2023/03/31 12:49:25 by yuikim           ###   ########.fr       */
+/*   Updated: 2023/03/31 13:33:31 by youngwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtins.h"
+#include "../include/builtins.h"
 
 int	is_same_str(char *str1, char *str2)
 {

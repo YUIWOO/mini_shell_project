@@ -6,23 +6,21 @@
 /*   By: youngwch <youngwch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 18:08:18 by youngwch          #+#    #+#             */
-/*   Updated: 2023/03/31 12:17:59 by youngwch         ###   ########.fr       */
+/*   Updated: 2023/03/31 14:07:29 by youngwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MAIN_H
 # define MAIN_H
 
-# include "main.h"
+# include "builtins.h"
 # include "../../libft/libft.h"
-# include "../builtins/builtins.h"
 # include <signal.h>
 # include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <unistd.h>
 # include <stdlib.h>
-# include <string.h>
 # include <fcntl.h>
 # include <termios.h>
 # include <sys/stat.h>
@@ -49,7 +47,6 @@ typedef struct s_execution
 	t_redirect	*redirect_ar;
 }	t_execution;
 
-//execute
 void		execute_all(t_execution *execution_ar, char ***envp);
 int			execute_iterate(t_execution *execution_ar,
 				char ***envp, int **pipe_ar);
@@ -66,7 +63,6 @@ int			open_file(char *file_name, int option);
 int			is_path(char *cmd_path);
 int			is_dir(char *exec_path);
 int			is_regular_file(char *exec_path);
-//parse
 t_execution	*str_to_execution(char *line, char ***envp);
 void		categorize_token(t_execution *exe_ptr,
 				char **token_ar, char ***envp);
@@ -85,7 +81,8 @@ char		*change_double_quote(char *token,
 				int *start, int end, char ***envp);
 char		*change_single_quote(char *token, int start, int end);
 char		*change_env_var(char *token, int start, int end, char ***envp);
-//signal
 void		handle_signal(void);
 void		signal_handler(int signum);
+int			is_valid_permission(char *exec_path);
+int			is_valid_path(char *exec_path);
 #endif

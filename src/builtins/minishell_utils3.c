@@ -6,11 +6,11 @@
 /*   By: youngwch <youngwch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 20:53:31 by yuikim            #+#    #+#             */
-/*   Updated: 2023/03/31 11:32:36 by youngwch         ###   ########.fr       */
+/*   Updated: 2023/03/31 13:33:43 by youngwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtins.h"
+#include "../include/builtins.h"
 
 char	*set_env_value(char ***envp, char *key, char *value)
 {	

@@ -6,7 +6,7 @@
 /*   By: youngwch <youngwch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 17:59:58 by youngwch          #+#    #+#             */
-/*   Updated: 2023/03/31 11:14:33 by youngwch         ###   ########.fr       */
+/*   Updated: 2023/03/31 13:28:00 by youngwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,12 @@ int	main(int argc, char **argv, char **envp)
 	envp = dptr_dup(envp);
 	input_handler(&term);
 	handle_signal();
+	execution_ar = NULL;
+	if (argc >= 2 && *(argv + 1))
+	{
+		ft_putstr_fd("invalid option\n", 1);
+		return (127);
+	}
 	while (1)
 	{
 		line = readline("bash $ ");

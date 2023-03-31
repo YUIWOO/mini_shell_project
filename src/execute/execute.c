@@ -6,11 +6,13 @@
 /*   By: youngwch <youngwch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 17:36:08 by youngwch          #+#    #+#             */
-/*   Updated: 2023/03/31 09:28:51 by youngwch         ###   ########.fr       */
+/*   Updated: 2023/03/31 14:12:13 by youngwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/main.h"
+
+extern int	g_exit_code;
 
 static void	set_fd(t_redirect *redirect, int *i_fd_ref, int *o_fd_ref)
 {
@@ -61,8 +63,6 @@ static void	make_default_iofd(int *input_fd,
 
 static void	check_invalid_cmd(char *cmd_path)
 {
-	int	i;
-
 	if (!is_path(cmd_path))
 	{
 		printf("%s: command not found\n", cmd_path);
@@ -70,8 +70,13 @@ static void	check_invalid_cmd(char *cmd_path)
 	}
 	if (is_dir(cmd_path))
 	{
-		printf("%s: is a directory\n", cmd_path);
-		exit(126);
+		g_exit_code = 126;
+		return ;
+	}
+	if (is_valid_permission(cmd_path))
+	{
+		g_exit_code = 1;
+		return ;
 	}
 	return ;
 }
@@ -99,5 +104,5 @@ int	execute(t_execution *execution, char ***envp, int **pipe_ar, int index)
 	check_invalid_cmd(cmd_path);
 	if (execve(cmd_path, execution->exev_argv, *envp) == -1)
 		exit_with_perror(cmd_path);
-	return (errno);
+	return (g_exit_code);
 }

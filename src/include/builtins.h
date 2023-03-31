@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yuikim <yuikim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: youngwch <youngwch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/24 11:38:07 by yuikim            #+#    #+#             */
-/*   Updated: 2023/03/31 12:52:10 by yuikim           ###   ########.fr       */
+/*   Created: 2023/03/31 12:59:37 by youngwch          #+#    #+#             */
+/*   Updated: 2023/03/31 13:33:22 by youngwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,11 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <limits.h>
-# include "../../libft/libft.h"//상대 경로로 표시할 필요 있음
-//define
+# include "../../libft/libft.h"
 # define HOME 1
 # define DEFAULT 0
 # define BUILTINERROR 123
 
-//builtin
 int		env(char **args, char **envp);
 int		pwd(void);
 int		cd(char *path, char ***envp);
@@ -32,9 +30,6 @@ int		export(char **args, char ***envp);
 int		unset(char **args, char **envp);
 int		echo(char **arg);
 void	ms_exit(char **arg);
-int		export_no_option(char **envp);
-
-//utils
 void	show_error(char *cmd);
 char	*get_env_value(char **envp, char *key);
 char	*set_env_value(char ***envp, char *key, char *value);
@@ -50,7 +45,6 @@ int		check_builtins(char **args, char ***envp);
 int		is_same_str(char *str1, char *str2);
 void	print_builtin_error(char *str);
 
-//type
 typedef struct s_info{
 	char	**envp;
 }	t_info;

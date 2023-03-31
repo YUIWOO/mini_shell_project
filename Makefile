@@ -3,44 +3,48 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yuikim <yuikim@student.42.fr>              +#+  +:+       +#+         #
+#    By: youngwch <youngwch@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/05 09:24:41 by yuikim            #+#    #+#              #
-#    Updated: 2023/02/17 22:00:35 by yuikim           ###   ########.fr        #
+#    Updated: 2023/03/31 14:14:21 by youngwch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-NAME = pipex
-NAME_BONUS = pipex
-
+NAME = minishell
+COMFILE_FLAGS = -lreadline -L${HOME}/.brew/opt/readline/lib
+OBJ_FLAGS = -I${HOME}/.brew/opt/readline/include
 SRCS_DIR = ./src/
-BONUS_DIR = ./bonus/
 LIBFT_DIR = ./libft/
 
-SRCS = child.c\
-		pipex.c
-SRCS_BONUS = pipex_bonus.c\
-			child_bonus.c\
-			pipex_utils_bonus.c\
-			pipex_file_bonus.c
+#-lreadline -L/Users/youngwch/.brew/opt/readline/lib -I/Users/youngwch/.brew/opt/readline/include
+
+SRCS = builtins/cd.c builtins/check_builtins.c builtins/echo.c builtins/env.c\
+		builtins/export.c builtins/minishell_utils.c\
+		builtins/minishell_utils2.c builtins/exit.c\
+		builtins/minishell_utils3.c builtins/pwd.c builtins/unset.c\
+		execute/execute_all.c execute/execute_iterate.c execute/execute_util.c execute/execute_util2.c\
+		execute/execute.c execute/here_doc.c execute/make_command_path.c\
+		main/main.c\
+		signal/signal_handler.c\
+		parse/categorize_token.c parse/free_execution_ar.c parse/is_valid_line.c parse/make_token.c\
+		parse/parsing_util.c parse/pipe_split.c parse/set_redirect_token.c\
+		parse/str_to_execution.c parse/token_change_func.c parse/token_to_good_token.c\
+
+#-I/Users/youngwch/.brew/opt/readline/include
+
 %.o : %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) $(OBJ_FLAGS) -c $< -o $@
 SRCS_PATH = $(addprefix $(SRCS_DIR), $(SRCS))
-SRCS_BONUS_PATH = $(addprefix $(BONUS_DIR), $(SRCS_BONUS))
 OBJS = ${SRCS_PATH:.c=.o}
-OBJS_BONUS = ${SRCS_BONUS_PATH:.c=.o}
 
 all : $(NAME)
 
 $(NAME) : $(OBJS)
 	make -C libft all
-	$(CC) $(CFLAGS) $(OBJS) libft/libft.a -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS) $(COMFIILE_FLAGS) libft/libft.a -o $(NAME) -lreadline -L/Users/youngwch/.brew/opt/readline/lib
 
-bonus :	$(OBJS_BONUS)
-	make -C libft all
-	$(CC) $(CFLAGS) $(OBJS_BONUS) libft/libft.a -o $(NAME)
 
 clean :
 	make -C libft clean

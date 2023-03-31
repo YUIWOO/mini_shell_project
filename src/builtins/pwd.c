@@ -6,11 +6,11 @@
 /*   By: youngwch <youngwch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 12:03:55 by yuikim            #+#    #+#             */
-/*   Updated: 2023/03/30 15:38:27 by youngwch         ###   ########.fr       */
+/*   Updated: 2023/03/31 13:33:43 by youngwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtins.h"
+#include "../include/builtins.h"
 
 int	pwd(void)
 {

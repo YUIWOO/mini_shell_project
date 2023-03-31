@@ -6,11 +6,11 @@
 /*   By: youngwch <youngwch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 17:06:16 by yuikim            #+#    #+#             */
-/*   Updated: 2023/03/31 10:46:12 by youngwch         ###   ########.fr       */
+/*   Updated: 2023/03/31 13:34:06 by youngwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtins.h"
+#include "../include/builtins.h"
 
 static void	remove_env(char *key, char **envp)
 {

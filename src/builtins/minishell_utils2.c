@@ -6,13 +6,11 @@
 /*   By: youngwch <youngwch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 19:22:12 by yuikim            #+#    #+#             */
-/*   Updated: 2023/03/29 20:24:38 by youngwch         ###   ########.fr       */
+/*   Updated: 2023/03/31 13:33:42 by youngwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtins.h"
-
-// extern char **g_envp;
+#include "../include/builtins.h"
 
 int	get_dptr_size(char **dptr)
 {
