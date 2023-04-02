@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstmap_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yuikim <yuikim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: youngwch <youngwch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 19:43:22 by yuikim            #+#    #+#             */
-/*   Updated: 2022/11/19 09:00:37 by yuikim           ###   ########.fr       */
+/*   Updated: 2023/04/02 11:43:26 by youngwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"//retry
+#include "libft.h"
 
 static void	ft_put_new(t_list **temp, t_list **current_node,
 				t_list **lst, void *(*f)(void *))

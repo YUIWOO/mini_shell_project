@@ -6,7 +6,7 @@
 /*   By: youngwch <youngwch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 17:36:08 by youngwch          #+#    #+#             */
-/*   Updated: 2023/03/31 17:26:11 by youngwch         ###   ########.fr       */
+/*   Updated: 2023/04/02 11:38:35 by youngwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,8 @@ static void	check_invalid_cmd(char *cmd_path)
 {
 	if (!is_path(cmd_path))
 	{
-		printf("%s: command not found\n", cmd_path);
+		ft_putstr_fd(cmd_path, 2);
+		ft_putstr_fd(": command not found\n", 2);
 		exit(127);
 	}
 	if (is_dir(cmd_path))
@@ -102,7 +103,6 @@ int	execute(t_execution *execution, char ***envp, int **pipe_ar, int index)
 	else
 	{
 		cmd_path = execution->exev_argv[0];
-		printf("else\n");
 	}
 	check_invalid_cmd(cmd_path);
 	if (execve(cmd_path, execution->exev_argv, *envp) == -1)
